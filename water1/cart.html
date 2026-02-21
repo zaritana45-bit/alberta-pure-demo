@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — AlbertaPure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001a33;
+      --navy: #0f172a;
+      --ocean: #0ea5e9;
+      --ocean-dark: #0284c7;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-ocean: rgba(14, 165, 233, 0.25);
+      --danger: #ef4444;
+      --success: #10b981;
+      --shadow: 0 12px 32px rgba(0,0,0,0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-light);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-ocean);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--ocean);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ocean);
+    }
+
+    .cart-icon {
+      font-size: 1.6rem;
+      color: var(--text-light);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      color: var(--ocean);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -12px;
+      background: var(--danger);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      padding-top: 120px;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: white;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 4rem 1rem;
+      font-size: 1.4rem;
+      color: var(--text-muted);
+    }
+
+    .empty-cart i {
+      font-size: 5rem;
+      color: var(--ocean);
+      margin-bottom: 1.5rem;
+      opacity: 0.6;
+    }
+
+    .cart-items {
+      margin-bottom: 3rem;
+    }
+
+    .cart-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .cart-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    @media (min-width: 640px) {
+      .cart-item {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .item-image {
+      width: 100%;
+      max-width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 1rem;
+      border: 1px solid var(--border-ocean);
+    }
+
+    @media (min-width: 640px) {
+      .item-image {
+        width: 140px;
+        flex-shrink: 0;
+      }
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .item-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ocean);
+      margin-bottom: 0.5rem;
+    }
+
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .qty-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border-ocean);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn:hover {
+      background: var(--ocean);
+      border-color: var(--ocean);
+    }
+
+    .qty-display {
+      font-size: 1.3rem;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .remove-btn {
+      color: var(--danger);
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .remove-btn:hover {
+      color: #f87171;
+    }
+
+    .cart-summary {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      text-align: right;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .summary-total {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ocean);
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-ocean);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      padding: 1.4rem;
+      margin-top: 2rem;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-dark));
+      color: white;
+      border: none;
+      border-radius: 3rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.35);
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(14,165,233,0.5);
+    }
+
+    .checkout-btn:disabled {
+      background: #4b5563;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    footer {
+      background: var(--navy);
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border-ocean);
+    }
+
+    .footer-title {
+      font-size: 2rem;
+      color: var(--ocean);
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-droplet"></i> AlbertaPure
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="cart.html" class="cart-icon active">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1>Your Cart</h1>
+
+      <div id="cartEmpty" class="empty-cart" style="display: none;">
+        <i class="fa-solid fa-cart-plus"></i>
+        <p>Your cart is empty.</p>
+        <a href="shop.html" style="color: var(--ocean); font-size: 1.3rem; text-decoration: none; margin-top: 1.5rem; display: inline-block;">
+          Continue Shopping →
+        </a>
+      </div>
+
+      <div id="cartContent">
+        <div class="cart-items" id="cartItems"></div>
+
+        <div class="cart-summary" id="cartSummary">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="subtotal">$0.00 CAD</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping (Free in Alberta)</span>
+            <span>$0.00 CAD</span>
+          </div>
+          <div class="summary-total">
+            <span>Total</span>
+            <span id="total">$0.00 CAD</span>
+          </div>
+
+          <button class="checkout-btn" id="checkoutBtn" disabled>
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
+      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
+      <p>(403) 555-0123 • support@albertapure.ca</p>
+      <p style="margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const cartItemsContainer = document.getElementById('cartItems');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+    const cartCountEl = document.getElementById('cart-count');
+    const emptyCartEl = document.getElementById('cartEmpty');
+    const cartContentEl = document.getElementById('cartContent');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function updateCartDisplay() {
+      cartItemsContainer.innerHTML = '';
+      let subtotal = 0;
+
+      if (cart.length === 0) {
+        emptyCartEl.style.display = 'block';
+        cartContentEl.style.display = 'none';
+        checkoutBtn.disabled = true;
+      } else {
+        emptyCartEl.style.display = 'none';
+        cartContentEl.style.display = 'block';
+        checkoutBtn.disabled = false;
+
+        cart.forEach((item, index) => {
+          const itemTotal = item.price * (item.qty || 1);
+          subtotal += itemTotal;
+
+          const itemEl = document.createElement('div');
+          itemEl.className = 'cart-item';
+          itemEl.innerHTML = `
+            <img src="https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                 alt="${item.name}" class="item-image" loading="lazy">
+            <div class="item-info">
+              <div class="item-title">${item.name}</div>
+              <div class="item-price">$${item.price.toFixed(2)} CAD</div>
+              <div class="item-quantity">
+                <button class="qty-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                <span class="qty-display">${item.qty || 1}</span>
+                <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
+              </div>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${index})">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          `;
+          cartItemsContainer.appendChild(itemEl);
+        });
+      }
+
+      subtotalEl.textContent = `$${subtotal.toFixed(2)} CAD`;
+      totalEl.textContent = `$${subtotal.toFixed(2)} CAD`; // + tax/shipping later
+      cartCountEl.textContent = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+    }
+
+    function changeQuantity(index, delta) {
+      if (cart[index]) {
+        cart[index].qty = Math.max(1, (cart[index].qty || 1) + delta);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartDisplay();
+      }
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartDisplay();
+    }
+
+    checkoutBtn.addEventListener('click', () => {
+      alert('Checkout functionality coming soon! Thank you for shopping with AlbertaPure.');
+      // Здесь можно добавить редирект на страницу оплаты или форму
+    });
+
+    // Initial render
+    updateCartDisplay();
+  </script>
+
+</body>
+</html>

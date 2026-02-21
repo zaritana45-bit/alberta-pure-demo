@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — AlbertaPure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001a33;
+      --navy: #0f172a;
+      --ocean: #0ea5e9;
+      --ocean-dark: #0284c7;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-ocean: rgba(14, 165, 233, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-light);
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-ocean);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--ocean);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ocean);
+    }
+
+    .cart-icon {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .cart-icon:hover {
+      color: var(--ocean);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      padding-top: 110px;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 4rem;
+    }
+
+    .section {
+      margin-bottom: 6rem;
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1.8rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight {
+      color: var(--ocean);
+      font-weight: 600;
+    }
+
+    .team-image {
+      width: 100%;
+      max-width: 800px;
+      border-radius: 1.5rem;
+      margin: 2.5rem auto;
+      display: block;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 1px solid var(--border-ocean);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    @media (min-width: 768px) {
+      .values-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .value-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      transition: all 0.4s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--ocean);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+
+    .value-icon {
+      font-size: 3rem;
+      color: var(--ocean);
+      margin-bottom: 1.2rem;
+    }
+
+    .value-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      background: var(--navy);
+      padding: 4rem 1.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border-ocean);
+    }
+
+    .footer-title {
+      font-size: 1.8rem;
+      color: var(--ocean);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav role="navigation">
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-droplet"></i> AlbertaPure
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html" class="active" aria-current="page">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="cart.html" class="cart-icon" aria-label="View cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1>About AlbertaPure</h1>
+      <p class="subtitle">Clean water you can trust — right here in Alberta</p>
+
+      <img src="https://dlczb9lfz9r73.cloudfront.net/wp-content/uploads/2022/06/29223210/AdobeStock_459550106-scaled.jpeg" alt="AlbertaPure team" class="team-image">
+
+      <div class="section">
+        <h2>Who We Are</h2>
+        <p>We're a family-founded company based right here in Calgary, and we've been helping Alberta families enjoy better water for <span class="highlight">over 10 years</span>.</p>
+        <p>Back when we started, hard water was just something everyone complained about — the white scale on faucets, the dry skin after showers, the funny taste from the tap. We got tired of hearing the same stories from friends and neighbors, so we decided to do something about it.</p>
+        <p>Today we're proud to say that thousands of homes across Alberta (and especially in Calgary and the surrounding areas) get their water through one of our systems. It's not just a business for us — it's personal.</p>
+      </div>
+
+      <div class="section">
+        <h2>Why Our Filters Stand Out</h2>
+        <p>We don't sell the cheapest filters on the market, and that's by design. We choose systems that actually work well with <strong>Alberta's water</strong> — the high mineral content, occasional iron issues, and that stubborn hardness we all know too well.</p>
+        <p>Every filter we carry goes through rigorous testing. We only partner with manufacturers who use:</p>
+        <ul style="list-style: none; padding-left: 1.5rem; margin: 1.5rem 0;">
+          <li style="margin-bottom: 1rem; font-size: 1.15rem;">✓ NSF/ANSI certified components (real certification, not just claims)</li>
+          <li style="margin-bottom: 1rem; font-size: 1.15rem;">✓ High-capacity media that lasts longer in hard-water conditions</li>
+          <li style="margin-bottom: 1rem; font-size: 1.15rem;">✓ BPA-free, food-grade materials throughout</li>
+          <li style="margin-bottom: 1rem; font-size: 1.15rem;">✓ Quiet, efficient designs that don't waste water unnecessarily</li>
+        </ul>
+        <p>The result? Systems that quietly do their job for years, without constant headaches or surprise breakdowns.</p>
+      </div>
+
+      <div class="section">
+        <h2>Our Core Values</h2>
+        <div class="values-grid">
+
+          <div class="value-card">
+            <i class="fa-solid fa-handshake value-icon"></i>
+            <div class="value-title">Honest Advice</div>
+            <p>We won't push the most expensive option if a simpler one will solve your problem just fine.</p>
+          </div>
+
+          <div class="value-card">
+            <i class="fa-solid fa-heart value-icon"></i>
+            <div class="value-title">Local & Personal</div>
+            <p>We're your neighbors. If something goes wrong, you talk to a real person in Calgary — not a call center halfway around the world.</p>
+          </div>
+
+          <div class="value-card">
+            <i class="fa-solid fa-shield-halved value-icon"></i>
+            <div class="value-title">Quality First</div>
+            <p>We'd rather sell fewer systems that last 10–15 years than chase quick sales with products that fail in two.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="text-align: center; margin: 4rem 0;">
+        <p style="font-size: 1.3rem; font-style: italic; color: var(--text-muted);">
+          "We believe every Albertan deserves water that tastes clean, feels soft, and doesn't damage their home. That's why we're still here after more than a decade — and why we'll keep being here."
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
+      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
+      <p>(403) 555-0123 • support@albertapure.ca</p>
+      <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    updateCartCount();
+    
+    // Lightweight toast to match other pages
+    function showToast(message) {
+      let el = document.getElementById('toast');
+      if (!el) return;
+      el.textContent = message;
+      el.classList.remove('hidden', 'opacity-0');
+      el.classList.add('opacity-100');
+      setTimeout(() => {
+        el.classList.add('opacity-0');
+        setTimeout(() => el.classList.add('hidden'), 300);
+      }, 2500);
+    }
+  </script>
+
+  <div id="toast" class="hidden fixed bottom-6 right-6 bg-ocean text-white px-4 py-2 rounded shadow-lg opacity-0 transition-opacity" role="status" aria-live="polite"></div>
+
+</body>
+</html>

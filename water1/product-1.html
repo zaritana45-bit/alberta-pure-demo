@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whole House Water Softener — AlbertaPure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001a33;
+      --navy: #0f172a;
+      --ocean: #0ea5e9;
+      --ocean-dark: #0284c7;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-ocean: rgba(14, 165, 233, 0.25);
+      --success: #10b981;
+      --shadow: 0 12px 32px rgba(0,0,0,0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-light);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-ocean);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--ocean);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ocean);
+    }
+
+    .cart-icon {
+      font-size: 1.6rem;
+      color: var(--text-light);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      color: var(--ocean);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -12px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      padding-top: 120px;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .product-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    @media (min-width: 992px) {
+      .product-layout {
+        grid-template-columns: 5fr 7fr;
+      }
+    }
+
+    .product-image-wrapper {
+      position: sticky;
+      top: 140px;
+    }
+
+    .product-image {
+      width: 100%;
+      border-radius: 1.6rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-ocean);
+      transition: transform 0.4s ease;
+    }
+
+    .product-image:hover {
+      transform: scale(1.02);
+    }
+
+    .product-details {
+      padding: 1rem 0;
+    }
+
+    .product-details h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      color: white;
+      line-height: 1.1;
+    }
+
+    .price {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--ocean);
+      margin-bottom: 2rem;
+      letter-spacing: -1px;
+    }
+
+    .add-to-cart-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      padding: 1.3rem 3rem;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-dark));
+      color: white;
+      border: none;
+      border-radius: 3rem;
+      font-size: 1.35rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.35);
+    }
+
+    .add-to-cart-btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 40px rgba(14,165,233,0.5);
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      margin-bottom: 2.2rem;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: white;
+      margin: 3rem 0 1.6rem;
+      position: relative;
+      padding-bottom: 0.8rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: var(--ocean);
+      border-radius: 2px;
+    }
+
+    ul.specs {
+      list-style: none;
+      font-size: 1.15rem;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+
+    ul.specs li {
+      margin-bottom: 1.2rem;
+      padding-left: 2.2rem;
+      position: relative;
+    }
+
+    ul.specs li::before {
+      content: "✓";
+      color: var(--ocean);
+      position: absolute;
+      left: 0;
+      font-size: 1.3rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      background: var(--navy);
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border-ocean);
+    }
+
+    .footer-title {
+      font-size: 2rem;
+      color: var(--ocean);
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-droplet"></i> AlbertaPure
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <div class="product-layout">
+
+        <!-- Image (left / top) -->
+        <div class="product-image-wrapper">
+          <img 
+            src="https://dlczb9lfz9r73.cloudfront.net/wp-content/uploads/2022/06/29223210/AdobeStock_459550106-scaled.jpeg" 
+            alt="Whole House Water Softener System" 
+            class="product-image"
+            loading="lazy"
+          >
+        </div>
+
+        <!-- Details (right / bottom) -->
+        <div class="product-details">
+          <h1>Whole House Water Softener System</h1>
+          <div class="price">$1,299 CAD</div>
+
+          <button 
+            class="add-to-cart-btn" 
+            onclick="addToCart(1, 'Whole House Water Softener System', 1299)"
+          >
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+
+          <p class="description">
+            Protect your entire home from the damaging effects of hard water. This powerful system removes calcium and magnesium before they can build up in pipes, water heaters, faucets, showerheads, and appliances. Say goodbye to white scale, reduced water pressure, and enjoy noticeably softer water for showers, laundry, and dishes.
+          </p>
+
+          <p class="description">
+            Specially tuned for Alberta's tough hard water conditions — performs excellently in Calgary, Red Deer, Edmonton, Lethbridge, and rural well-water homes.
+          </p>
+
+          <h2>Key Features & Benefits</h2>
+          <ul class="specs">
+            <li>High-efficiency salt-based softening — uses up to 40% less salt than traditional models</li>
+            <li>Digital metered control head regenerates only when necessary</li>
+            <li>Capacity: 30,000–60,000 grains (model-dependent)</li>
+            <li>NSF/ANSI certified components for safety & performance</li>
+            <li>Included bypass valve for easy servicing</li>
+            <li>10-year warranty on tank, 5-year on valve</li>
+            <li>Professional installation available in the Calgary area</li>
+            <li>Free shipping province-wide in Alberta</li>
+          </ul>
+
+          <h2>Who It's For</h2>
+          <p class="description">
+            Ideal for families frustrated with scale buildup, dry skin after showers, spots on glassware, and shortened appliance life. If your water leaves white residue or feels unusually "slippery", this is the solution most Albertans trust.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
+      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
+      <p>(403) 555-0123 • support@albertapure.ca</p>
+      <p style="margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    function addToCart(id, name, price) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        cart.push({ id, name, price, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(`${name} added to cart!`);
+    }
+
+    updateCartCount();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — AlbertaPure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001a33;
+      --navy: #0f172a;
+      --ocean: #0ea5e9;
+      --ocean-dark: #0284c7;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-ocean: rgba(14, 165, 233, 0.2);
+      --success: #10b981;
+      --error: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-light);
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    nav {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-ocean);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--ocean);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ocean);
+    }
+
+    .cart-icon {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .cart-icon:hover {
+      color: var(--ocean);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      padding-top: 110px;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1rem;
+      color: white;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 3.5rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    @media (min-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .contact-info {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .info-icon {
+      font-size: 2rem;
+      color: var(--ocean);
+      margin-right: 1.2rem;
+      margin-top: 0.3rem;
+    }
+
+    .info-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-content p, .info-content a {
+      font-size: 1.15rem;
+      color: #cbd5e1;
+    }
+
+    .info-content a {
+      color: var(--ocean);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .info-content a:hover {
+      color: var(--ocean-dark);
+      text-decoration: underline;
+    }
+
+    form {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      backdrop-filter: blur(8px);
+    }
+
+    label {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+      color: #e2e8f0;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border-ocean);
+      border-radius: 0.8rem;
+      color: white;
+      font-size: 1.1rem;
+      transition: border-color 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--ocean);
+      box-shadow: 0 0 0 3px rgba(14,165,233,0.2);
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 1.2rem;
+      background: var(--ocean);
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--ocean-dark);
+      transform: translateY(-3px);
+    }
+
+    .form-message {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 0.8rem;
+      font-weight: 500;
+      text-align: center;
+      display: none;
+    }
+
+    .success {
+      background: rgba(16,185,129,0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16,185,129,0.4);
+    }
+
+    .error {
+      background: rgba(239,68,68,0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.4);
+    }
+
+    footer {
+      background: var(--navy);
+      padding: 4rem 1.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border-ocean);
+    }
+
+    .footer-title {
+      font-size: 1.8rem;
+      color: var(--ocean);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-droplet"></i> AlbertaPure
+      </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </div>
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1>Get in Touch</h1>
+      <p class="subtitle">We’re here to help with any water questions — just reach out</p>
+
+      <img src="https://images.unsplash.com/photo-1505842465776-3d6f7f3aebd1?auto=format&fit=crop&w=1200&q=80" alt="Showroom" style="width:100%; border-radius:12px; margin:1.5rem 0; box-shadow:0 15px 30px rgba(0,0,0,0.45); border:1px solid rgba(14,165,233,0.12);">
+
+      <div class="contact-grid">
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+          <h2 style="text-align: center; margin-bottom: 2rem;">Our Details</h2>
+
+          <div class="info-item">
+            <i class="fa-solid fa-map-marker-alt info-icon"></i>
+            <div class="info-content">
+              <h3>Visit Us</h3>
+              <p>123 Water Avenue SW<br>Calgary, AB T2P 1J9</p>
+              <p style="margin-top: 0.5rem; font-size: 1rem; color: var(--text-muted);">
+                (Showroom open Mon–Fri 9–5, Sat 10–3)
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <i class="fa-solid fa-phone info-icon"></i>
+            <div class="info-content">
+              <h3>Call Us</h3>
+              <p><a href="tel:+14035550123">(403) 555-0123</a></p>
+              <p style="margin-top: 0.5rem; font-size: 1rem; color: var(--text-muted);">
+                Best time: Mon–Fri 8 AM – 6 PM MST
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <i class="fa-solid fa-envelope info-icon"></i>
+            <div class="info-content">
+              <h3>Email Us</h3>
+              <p><a href="mailto:support@albertapure.ca">support@albertapure.ca</a></p>
+              <p style="margin-top: 0.5rem; font-size: 1rem; color: var(--text-muted);">
+                We usually reply within a few hours during business days
+              </p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <i class="fa-solid fa-clock info-icon"></i>
+            <div class="info-content">
+              <h3>Hours</h3>
+              <p>Monday–Friday: 8:00 AM – 6:00 PM<br>
+                 Saturday: 10:00 AM – 3:00 PM<br>
+                 Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div>
+          <form id="contactForm">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Smith">
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+
+            <label for="phone">Phone Number (optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="(403) 123-4567">
+
+            <label for="message">How can we help you?</label>
+            <textarea id="message" name="message" required placeholder="Tell us about your water concerns, installation questions, or anything else..."></textarea>
+
+            <button type="submit">Send Message</button>
+
+            <div id="formMessage" class="form-message"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
+      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
+      <p>(403) 555-0123 • support@albertapure.ca</p>
+      <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Cart count
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+    updateCartCount();
+
+    // Simple form handling (demo — in real project connect to backend)
+    const form = document.getElementById('contactForm');
+    const messageDiv = document.getElementById('formMessage');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Simulate sending (in real life — fetch to server)
+      messageDiv.style.display = 'block';
+      messageDiv.className = 'form-message success';
+      messageDiv.textContent = 'Thank you! We received your message and will get back to you soon.';
+
+      // Clear form
+      form.reset();
+
+      // Hide message after 8 seconds
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 8000);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Water Systems — AlbertaPure</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --deep-ocean: #001a33;
+      --navy: #0f172a;
+      --ocean: #0ea5e9;
+      --ocean-dark: #0284c7;
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-ocean: rgba(14, 165, 233, 0.25);
+      --shadow: 0 12px 32px rgba(0,0,0,0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-light);
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Навигация */
+    nav {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-ocean);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--ocean);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.8rem;
+      font-size: 1.15rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ocean);
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      min-width: 320px;
+      border-radius: 1rem;
+      border: 1px solid var(--border-ocean);
+      box-shadow: var(--shadow);
+      padding: 1.2rem 0;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 0.9rem 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background: rgba(14, 165, 233, 0.15);
+      color: var(--ocean);
+    }
+
+    .dropdown-item i {
+      margin-right: 1rem;
+      font-size: 1.3rem;
+      opacity: 0.8;
+    }
+
+    .cart-icon {
+      font-size: 1.6rem;
+      color: var(--text-light);
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      color: var(--ocean);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -12px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Остальные стили (main, products-grid, footer и т.д.) — без изменений */
+    main {
+      padding-top: 120px;
+      padding-bottom: 100px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 3.5rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 640px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1280px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .product-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .product-card:hover {
+      transform: translateY(-12px);
+      border-color: var(--ocean);
+      box-shadow: var(--shadow);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1.75rem;
+    }
+
+    .product-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ocean);
+      margin-bottom: 1rem;
+    }
+
+    .product-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .add-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--ocean);
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .add-btn:hover {
+      background: var(--ocean-dark);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: var(--navy);
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      border-top: 1px solid var(--border-ocean);
+    }
+
+    .footer-title {
+      font-size: 2rem;
+      color: var(--ocean);
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar с dropdown -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <i class="fa-solid fa-droplet"></i> AlbertaPure
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+
+        <!-- Dropdown Shop -->
+        <div class="dropdown">
+          <a href="shop.html" class="active">Shop</a>
+          <div class="dropdown-content">
+            <a href="product-1.html" class="dropdown-item"><i class="fa-solid fa-house"></i> Whole House Softener</a>
+            <a href="product-2.html" class="dropdown-item"><i class="fa-solid fa-sink"></i> Under-Sink RO System</a>
+            <a href="product-3.html" class="dropdown-item"><i class="fa-solid fa-bottle-water"></i> Countertop RO Dispenser</a>
+            <a href="product-4.html" class="dropdown-item"><i class="fa-solid fa-shower"></i> Premium Shower Filter</a>
+            <a href="product-5.html" class="dropdown-item"><i class="fa-solid fa-glass-water"></i> Alkaline Pitcher</a>
+            <a href="product-6.html" class="dropdown-item"><i class="fa-solid fa-lightbulb"></i> UV Whole House Sterilizer</a>
+            <a href="product-7.html" class="dropdown-item"><i class="fa-solid fa-faucet"></i> Faucet-Mount Filter</a>
+            <a href="product-9.html" class="dropdown-item"><i class="fa-solid fa-water"></i> Iron & Manganese Filter</a>
+          </div>
+        </div>
+
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+   <!-- Main -->
+  <main>
+    <div class="container">
+      <h1>Shop Water Filtration Systems</h1>
+      <p class="subtitle">Solutions for hard water, iron, chlorine & more — built for Alberta homes</p>
+
+     <div class="products-grid">
+
+  <!-- 1. Whole House Water Softener -->
+  <div class="product-card">
+    <a href="product-1.html">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-1.html" style="color:inherit; text-decoration:none;">Whole House Water Softener</a></h3>
+      <div class="product-price">$1,299 CAD</div>
+      <p class="product-desc">Eliminates scale in pipes, appliances & every faucet</p>
+      <button type="button" class="add-btn" onclick="addToCart(1, 'House Water Softener', 1299)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- 2. Countertop RO Dispenser -->
+  <div class="product-card">
+    <a href="product-3.html">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-2.html" style="color:inherit; text-decoration:none;">Countertop RO Dispenser</a></h3>
+      <div class="product-price">$299 CAD</div>
+      <p class="product-desc">No installation — plug & pure water instantly</p>
+      <button type="button" class="add-btn" onclick="addToCart(3, 'Countertop RO Dispenser', 399)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- 3. Countertop RO Dispenser -->
+  <div class="product-card">
+    <a href="product-3.html">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-3.html" style="color:inherit; text-decoration:none;">Countertop RO Dispenser</a></h3>
+      <div class="product-price">$399 CAD</div>
+      <p class="product-desc">No installation — plug & pure water instantly</p>
+      <button type="button" class="add-btn" onclick="addToCart(3, 'Countertop RO Dispenser', 399)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- 4. Premium Shower Filter -->
+  <div class="product-card">
+    <a href="product-4.html">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-4.html" style="color:inherit; text-decoration:none;">Premium Shower Filter</a></h3>
+      <div class="product-price">$89 CAD</div>
+      <p class="product-desc">Chlorine-free showers, softer skin & hair</p>
+      <button type="button" class="add-btn" onclick="addToCart(4, 'Premium Shower Filter', 89)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- 5. Alkaline Gravity Pitcher -->
+  <div class="product-card">
+    <a href="product-5.html">
+      <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Alkaline Gravity Water Pitcher" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-5.html" style="color:inherit; text-decoration:none;">Alkaline Gravity Pitcher</a></h3>
+      <div class="product-price">$129 CAD</div>
+      <p class="product-desc">Raises pH, adds minerals — great taste</p>
+      <button type="button" class="add-btn" onclick="addToCart(5, 'Alkaline Gravity Pitcher', 129)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- 6. UV Whole House Sterilizer -->
+  <div class="product-card">
+    <a href="product-6.html">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-6.html" style="color:inherit; text-decoration:none;">UV Whole House Sterilizer</a></h3>
+      <div class="product-price">$699 CAD</div>
+      <p class="product-desc">Kills bacteria & viruses — safe well water</p>
+      <button type="button" class="add-btn" onclick="addToCart(6, 'UV Whole House Sterilizer', 699)">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- 7. Alkaline Gravity Pitcher -->
+  <div class="product-card">
+    <a href="product-7.html">
+      <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Alkaline Gravity Water Pitcher" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-7.html" style="color:inherit; text-decoration:none;">Alkaline Gravity Pitcher</a></h3>
+      <div class="product-price">$1209 CAD</div>
+      <p class="product-desc">Raises pH, adds minerals — great taste</p>
+      <button type="button" class="add-btn" onclick="addToCart(7, 'Alkaline Gravity Pitcher', 1209)">Add to Cart</button>
+    </div>
+  </div>
+  <!-- 8. Alkaline Gravity Pitcher -->
+  <div class="product-card">
+    <a href="product-8.html">
+      <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+           alt="Alkaline Gravity Water Pitcher" class="product-img">
+    </a>
+    <div class="product-info">
+      <h3 class="product-title"><a href="product-8.html" style="color:inherit; text-decoration:none;">Alkaline Gravity Pitcher</a></h3>
+      <div class="product-price">$1209 CAD</div>
+      <p class="product-desc">Raises pH, adds minerals — great taste</p>
+      <button type="button" class="add-btn" onclick="addToCart(8, 'Alkaline Gravity Pitcher', 1209)">Add to Cart</button>
+    </div>
+  </div>
+
+</div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
+      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
+      <p>(403) 555-0123 • support@albertapure.ca</p>
+      <p style="margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Твой текущий скрипт корзины
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      document.getElementById('cart-count').textContent = count;
+    }
+
+    function addToCart(id, name, price) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        cart.push({ id, name, price, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert(`${name} added to cart!`);
+    }
+
+    updateCartCount();
+  </script>
+
+</body>
+</html>
