@@ -3,464 +3,628 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart — AlbertaPure</title>
+  <title>Your Cart — AlbertaPure</title>
+  <meta name="description" content="Review your AlbertaPure order. Free shipping across Alberta.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --deep-ocean: #001a33;
-      --navy: #0f172a;
-      --ocean: #0ea5e9;
-      --ocean-dark: #0284c7;
-      --text-light: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border-ocean: rgba(14, 165, 233, 0.25);
-      --danger: #ef4444;
-      --success: #10b981;
-      --shadow: 0 12px 32px rgba(0,0,0,0.45);
+      --deep-ocean:#001a33; --navy:#0f172a; --ocean:#0ea5e9;
+      --ocean-dark:#0284c7; --ocean-glow:rgba(14,165,233,0.12);
+      --text-light:#f1f5f9; --text-muted:#94a3b8;
+      --border-ocean:rgba(14,165,233,0.22); --shadow:0 12px 32px rgba(0,0,0,0.5);
+      --danger:#ef4444; --success:#10b981;
     }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--deep-ocean); color:var(--text-light); font-family:'Outfit',system-ui,sans-serif; line-height:1.6; min-height:100vh; }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* NAV */
+    nav { background:rgba(15,23,42,0.95); backdrop-filter:blur(16px); position:fixed; width:100%; top:0; z-index:1000; border-bottom:1px solid var(--border-ocean); box-shadow:0 4px 24px rgba(0,0,0,0.35); }
+    .nav-container { max-width:1400px; margin:0 auto; padding:1rem 2rem; display:flex; justify-content:space-between; align-items:center; }
+    .logo { font-size:1.8rem; font-weight:800; color:var(--ocean); display:flex; align-items:center; gap:0.7rem; text-decoration:none; letter-spacing:-.02em; }
+    .nav-links { display:flex; gap:2.5rem; font-size:1.05rem; font-weight:500; align-items:center; }
+    .nav-links a { color:var(--text-light); text-decoration:none; transition:color .3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--ocean); }
+    .dropdown { position:relative; }
+    .dropdown>a::after { content:' ▾'; font-size:.75rem; opacity:.6; }
+    .dropdown-content { display:none; position:absolute; top:calc(100% + 14px); left:0; background:rgba(10,18,38,0.98); backdrop-filter:blur(12px); min-width:300px; border-radius:1rem; border:1px solid var(--border-ocean); box-shadow:var(--shadow); padding:.8rem 0; z-index:999; }
+    .dropdown:hover .dropdown-content { display:block; }
+    .dropdown-item { display:flex; align-items:center; padding:.75rem 1.4rem; color:var(--text-light); text-decoration:none; font-size:.98rem; transition:all .2s; gap:.9rem; }
+    .dropdown-item:hover { background:var(--ocean-glow); color:var(--ocean); }
+    .dropdown-item i { width:20px; text-align:center; opacity:.8; }
+    .nav-right { display:flex; align-items:center; gap:1.5rem; }
+    .cart-icon { font-size:1.5rem; color:var(--ocean); position:relative; text-decoration:none; }
+    .cart-count { position:absolute; top:-8px; right:-10px; background:var(--danger); color:white; font-size:.72rem; font-weight:700; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; border:none; background:none; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--text-light); border-radius:2px; transition:all .3s; }
+    .hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity:0; }
+    .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display:none; position:fixed; inset:0; background:rgba(0,10,25,0.98); backdrop-filter:blur(20px); z-index:999; padding:90px 2rem 2rem; flex-direction:column; overflow-y:auto; transform:translateX(100%); transition:transform .35s cubic-bezier(.4,0,.2,1); }
+    .mobile-menu.open { display:flex; transform:translateX(0); }
+    .mobile-nav-link { display:block; color:var(--text-light); font-size:1.6rem; font-weight:600; text-decoration:none; padding:1rem 0; border-bottom:1px solid rgba(14,165,233,.12); transition:color .2s; }
+    .mobile-nav-link:hover, .mobile-nav-link.active { color:var(--ocean); }
+    .mobile-section-title { font-size:.85rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ocean); margin:1.5rem 0 .5rem; }
+    .mobile-sub-link { display:flex; align-items:center; gap:.8rem; color:var(--text-muted); font-size:1.1rem; text-decoration:none; padding:.7rem 0; transition:color .2s; }
+    .mobile-sub-link:hover { color:var(--ocean); }
+    .mobile-sub-link i { width:18px; }
+    .mobile-cta { margin-top:2rem; display:block; padding:1rem 2rem; background:var(--ocean); color:white; font-size:1.1rem; font-weight:600; border-radius:3rem; text-decoration:none; text-align:center; }
 
-    body {
-      background: var(--deep-ocean);
-      color: var(--text-light);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
+    /* PAGE */
+    main { max-width:1200px; margin:0 auto; padding:100px 2rem 6rem; }
 
-    nav {
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(12px);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid var(--border-ocean);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
-    }
+    .page-header { margin-bottom:2.5rem; }
+    .page-header h1 { font-size:clamp(1.8rem,4vw,2.6rem); font-weight:800; letter-spacing:-.03em; margin-bottom:.3rem; }
+    .page-header p { color:var(--text-muted); font-size:1rem; }
 
-    .nav-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 1.1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* PROGRESS BAR */
+    .checkout-steps { display:flex; align-items:center; gap:0; margin-bottom:3rem; }
+    .cstep { display:flex; align-items:center; gap:.5rem; font-size:.9rem; font-weight:600; color:var(--text-muted); }
+    .cstep.active { color:var(--ocean); }
+    .cstep.done { color:var(--success); }
+    .cstep-num { width:28px; height:28px; border-radius:50%; border:2px solid currentColor; display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:700; flex-shrink:0; }
+    .cstep-divider { flex:1; height:1px; background:var(--border-ocean); margin:0 .8rem; max-width:60px; }
 
-    .logo {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: var(--ocean);
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
+    /* LAYOUT */
+    .cart-layout { display:grid; grid-template-columns:1fr 380px; gap:2.5rem; align-items:start; }
+    @media(max-width:900px) { .cart-layout { grid-template-columns:1fr; } .order-sidebar { order:-1; } }
 
-    .nav-links {
-      display: flex;
-      gap: 2.8rem;
-      font-size: 1.15rem;
-      font-weight: 500;
-    }
+    /* EMPTY STATE */
+    .empty-state { text-align:center; padding:5rem 1rem; animation:fadeUp .6s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .empty-state i { font-size:5rem; color:var(--ocean); opacity:.3; margin-bottom:1.5rem; display:block; }
+    .empty-state h2 { font-size:1.8rem; font-weight:800; margin-bottom:.8rem; }
+    .empty-state p { color:var(--text-muted); font-size:1.05rem; margin-bottom:2rem; }
+    .btn-ocean { display:inline-flex; align-items:center; gap:.6rem; padding:.95rem 2rem; background:var(--ocean); color:white; border-radius:3rem; text-decoration:none; font-weight:700; font-size:1.05rem; transition:all .3s; box-shadow:0 8px 25px rgba(14,165,233,.35); }
+    .btn-ocean:hover { background:var(--ocean-dark); transform:translateY(-3px); }
 
-    .nav-links a {
-      color: var(--text-light);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--ocean);
-    }
-
-    .cart-icon {
-      font-size: 1.6rem;
-      color: var(--text-light);
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    .cart-icon:hover {
-      color: var(--ocean);
-    }
-
-    .cart-count {
-      position: absolute;
-      top: -10px;
-      right: -12px;
-      background: var(--danger);
-      color: white;
-      font-size: 0.8rem;
-      font-weight: bold;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    main {
-      padding-top: 120px;
-      padding-bottom: 100px;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      color: white;
-    }
-
-    .empty-cart {
-      text-align: center;
-      padding: 4rem 1rem;
-      font-size: 1.4rem;
-      color: var(--text-muted);
-    }
-
-    .empty-cart i {
-      font-size: 5rem;
-      color: var(--ocean);
-      margin-bottom: 1.5rem;
-      opacity: 0.6;
-    }
-
-    .cart-items {
-      margin-bottom: 3rem;
-    }
+    /* CART ITEMS */
+    .cart-items { display:flex; flex-direction:column; gap:1rem; }
 
     .cart-item {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      background: rgba(15, 23, 42, 0.75);
-      border: 1px solid var(--border-ocean);
-      border-radius: 1.2rem;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s ease;
+      display:grid;
+      grid-template-columns:90px 1fr auto;
+      gap:1.2rem;
+      align-items:center;
+      background:rgba(15,23,42,0.75);
+      border:1px solid var(--border-ocean);
+      border-radius:1.3rem;
+      padding:1.4rem;
+      backdrop-filter:blur(8px);
+      transition:all .35s ease;
+      animation:fadeUp .4s ease both;
     }
 
-    .cart-item:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
+    .cart-item:hover { border-color:var(--ocean); box-shadow:0 8px 24px rgba(0,0,0,.3); }
+
+    @media(max-width:600px) {
+      .cart-item { grid-template-columns:70px 1fr; }
+      .item-actions { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; }
     }
 
-    @media (min-width: 640px) {
-      .cart-item {
-        flex-direction: row;
-        align-items: center;
-      }
-    }
+    .item-img { width:90px; height:90px; border-radius:.9rem; object-fit:cover; border:1px solid var(--border-ocean); }
+    @media(max-width:600px) { .item-img { width:70px; height:70px; } }
 
-    .item-image {
-      width: 100%;
-      max-width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 1rem;
-      border: 1px solid var(--border-ocean);
-    }
+    .item-details { min-width:0; }
+    .item-category { font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--ocean); margin-bottom:.2rem; }
+    .item-name { font-size:1.05rem; font-weight:700; margin-bottom:.4rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .item-price-unit { font-size:.9rem; color:var(--text-muted); }
 
-    @media (min-width: 640px) {
-      .item-image {
-        width: 140px;
-        flex-shrink: 0;
-      }
-    }
+    .item-actions { display:flex; flex-direction:column; align-items:flex-end; gap:.8rem; }
+    .item-total { font-size:1.3rem; font-weight:800; color:var(--ocean); letter-spacing:-.02em; }
 
-    .item-info {
-      flex: 1;
-    }
-
-    .item-title {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-    }
-
-    .item-price {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--ocean);
-      margin-bottom: 0.5rem;
-    }
-
-    .item-quantity {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.8rem;
-    }
-
+    .qty-row { display:flex; align-items:center; gap:.7rem; }
     .qty-btn {
-      width: 36px;
-      height: 36px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid var(--border-ocean);
-      border-radius: 50%;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:32px; height:32px;
+      background:rgba(255,255,255,.07);
+      border:1px solid var(--border-ocean);
+      border-radius:50%; color:var(--text-light);
+      font-size:1rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:all .2s; flex-shrink:0;
     }
-
-    .qty-btn:hover {
-      background: var(--ocean);
-      border-color: var(--ocean);
-    }
-
-    .qty-display {
-      font-size: 1.3rem;
-      min-width: 40px;
-      text-align: center;
-    }
+    .qty-btn:hover { background:var(--ocean); border-color:var(--ocean); }
+    .qty-num { font-size:1.05rem; font-weight:700; min-width:24px; text-align:center; }
 
     .remove-btn {
-      color: var(--danger);
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      transition: color 0.2s;
+      background:none; border:none; color:rgba(239,68,68,.6);
+      font-size:.85rem; cursor:pointer; transition:color .2s;
+      display:flex; align-items:center; gap:.3rem;
+      font-family:'Outfit',sans-serif; font-size:.82rem; font-weight:500;
+    }
+    .remove-btn:hover { color:var(--danger); }
+
+    /* PROMO CODE */
+    .promo-wrap { margin-top:1.5rem; }
+    .promo-row { display:flex; gap:.7rem; }
+    .promo-input {
+      flex:1; padding:.8rem 1rem;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border-ocean);
+      border-radius:.8rem; color:white;
+      font-family:'Outfit',sans-serif; font-size:.97rem;
+      outline:none; transition:border-color .25s;
+    }
+    .promo-input:focus { border-color:var(--ocean); }
+    .promo-input::placeholder { color:rgba(148,163,184,.5); }
+    .promo-btn {
+      padding:.8rem 1.3rem;
+      background:rgba(14,165,233,.15);
+      border:1px solid var(--border-ocean);
+      border-radius:.8rem; color:var(--ocean);
+      font-family:'Outfit',sans-serif; font-size:.97rem; font-weight:600;
+      cursor:pointer; transition:all .25s; white-space:nowrap;
+    }
+    .promo-btn:hover { background:var(--ocean); color:white; border-color:var(--ocean); }
+    .promo-msg { font-size:.85rem; margin-top:.5rem; }
+    .promo-msg.ok { color:var(--success); }
+    .promo-msg.err { color:var(--danger); }
+
+    /* CONTINUE SHOPPING */
+    .continue-link { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-muted); font-size:.95rem; text-decoration:none; margin-top:1.5rem; transition:color .2s; }
+    .continue-link:hover { color:var(--ocean); }
+
+    /* ORDER SUMMARY SIDEBAR */
+    .order-sidebar { position:sticky; top:90px; }
+
+    .summary-card {
+      background:rgba(15,23,42,.85);
+      border:1px solid var(--border-ocean);
+      border-radius:1.5rem;
+      padding:2rem;
+      backdrop-filter:blur(10px);
     }
 
-    .remove-btn:hover {
-      color: #f87171;
-    }
+    .summary-title { font-size:1.15rem; font-weight:800; margin-bottom:1.5rem; }
 
-    .cart-summary {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid var(--border-ocean);
-      border-radius: 1.5rem;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      text-align: right;
-    }
+    .summary-line { display:flex; justify-content:space-between; align-items:center; font-size:.97rem; padding:.5rem 0; }
+    .summary-line span:first-child { color:var(--text-muted); }
 
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
+    .summary-line.total {
+      font-size:1.35rem; font-weight:800;
+      border-top:1px solid var(--border-ocean);
+      margin-top:.8rem; padding-top:1.1rem;
+      color:white;
     }
+    .summary-line.total span:last-child { color:var(--ocean); }
 
-    .summary-total {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--ocean);
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-ocean);
-    }
+    .free-badge { background:rgba(16,185,129,.15); color:#6ee7b7; font-size:.78rem; font-weight:700; padding:.2rem .6rem; border-radius:3rem; }
+    .discount-badge { background:rgba(239,68,68,.15); color:#fca5a5; font-size:.78rem; font-weight:700; padding:.2rem .6rem; border-radius:3rem; }
 
+    .gst-note { font-size:.82rem; color:var(--text-muted); text-align:center; margin-top:.6rem; }
+
+    /* CHECKOUT BTN */
     .checkout-btn {
-      width: 100%;
-      padding: 1.4rem;
-      margin-top: 2rem;
-      background: linear-gradient(135deg, var(--ocean), var(--ocean-dark));
-      color: white;
-      border: none;
-      border-radius: 3rem;
-      font-size: 1.4rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.35s ease;
-      box-shadow: 0 8px 25px rgba(14,165,233,0.35);
+      width:100%; padding:1.2rem;
+      margin-top:1.5rem;
+      background:linear-gradient(135deg, var(--ocean), var(--ocean-dark));
+      color:white; border:none; border-radius:3rem;
+      font-family:'Outfit',sans-serif; font-size:1.15rem; font-weight:700;
+      cursor:pointer; transition:all .3s;
+      box-shadow:0 8px 25px rgba(14,165,233,.35);
+      display:flex; align-items:center; justify-content:center; gap:.7rem;
     }
+    .checkout-btn:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(14,165,233,.5); }
+    .checkout-btn:disabled { background:#334155; cursor:not-allowed; box-shadow:none; transform:none; }
 
-    .checkout-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(14,165,233,0.5);
-    }
+    /* SECURE BADGES */
+    .secure-row { display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap; margin-top:1.3rem; }
+    .secure-badge { display:flex; align-items:center; gap:.35rem; font-size:.78rem; color:var(--text-muted); }
+    .secure-badge i { color:var(--success); font-size:.8rem; }
 
-    .checkout-btn:disabled {
-      background: #4b5563;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    /* PAYMENT LOGOS */
+    .pay-logos { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid var(--border-ocean); }
+    .pay-logo { background:rgba(255,255,255,.06); border:1px solid var(--border-ocean); border-radius:.4rem; padding:.3rem .7rem; font-size:.82rem; color:var(--text-muted); display:flex; align-items:center; gap:.3rem; }
 
-    footer {
-      background: var(--navy);
-      padding: 5rem 2rem 3rem;
-      text-align: center;
-      border-top: 1px solid var(--border-ocean);
-    }
+    /* RECOMMENDED */
+    .recommended { margin-top:2rem; }
+    .recommended h3 { font-size:1rem; font-weight:700; margin-bottom:1rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em; font-size:.85rem; }
+    .rec-items { display:flex; flex-direction:column; gap:.8rem; }
+    .rec-item { display:flex; gap:.9rem; align-items:center; background:rgba(15,23,42,.5); border:1px solid var(--border-ocean); border-radius:1rem; padding:.9rem; transition:border-color .25s; }
+    .rec-item:hover { border-color:var(--ocean); }
+    .rec-img { width:52px; height:52px; border-radius:.6rem; object-fit:cover; flex-shrink:0; }
+    .rec-info { flex:1; min-width:0; }
+    .rec-name { font-size:.9rem; font-weight:600; margin-bottom:.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .rec-price { font-size:.85rem; color:var(--ocean); font-weight:700; }
+    .rec-add { padding:.4rem .9rem; background:rgba(14,165,233,.15); border:1px solid var(--border-ocean); border-radius:.5rem; color:var(--ocean); font-family:'Outfit',sans-serif; font-size:.82rem; font-weight:600; cursor:pointer; transition:all .2s; white-space:nowrap; }
+    .rec-add:hover { background:var(--ocean); color:white; border-color:var(--ocean); }
 
-    .footer-title {
-      font-size: 2rem;
-      color: var(--ocean);
-      margin-bottom: 1.2rem;
-      font-weight: 600;
-    }
+    /* FOOTER */
+    footer { background:var(--navy); padding:2.5rem 2rem 2rem; border-top:1px solid var(--border-ocean); text-align:center; color:var(--text-muted); font-size:.9rem; }
+
+    /* TOAST */
+    #toast { position:fixed; bottom:1.5rem; right:1.5rem; background:var(--ocean); color:white; padding:.9rem 1.6rem; border-radius:3rem; font-size:1rem; font-weight:600; box-shadow:0 8px 25px rgba(14,165,233,.4); opacity:0; transform:translateY(12px); transition:all .3s ease; pointer-events:none; z-index:9999; }
+
+    @media(max-width:900px) { .nav-links{display:none;} .hamburger{display:flex;} }
+    @media(max-width:600px) { .nav-container{padding:1rem 1.2rem;} main{padding:85px 1rem 4rem;} }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
+  <!-- NAV -->
   <nav>
     <div class="nav-container">
-      <div class="logo">
-        <i class="fa-solid fa-droplet"></i> AlbertaPure
-      </div>
+      <a href="index.html" class="logo"><i class="fa-solid fa-droplet"></i> AlbertaPure</a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
+        <div class="dropdown">
+          <a href="shop.html">Shop</a>
+          <div class="dropdown-content">
+            <a href="product-1.html" class="dropdown-item"><i class="fa-solid fa-house"></i> Whole House Softener</a>
+            <a href="product-2.html" class="dropdown-item"><i class="fa-solid fa-sink"></i> Under-Sink RO System</a>
+            <a href="product-3.html" class="dropdown-item"><i class="fa-solid fa-bottle-water"></i> Countertop RO Dispenser</a>
+            <a href="product-4.html" class="dropdown-item"><i class="fa-solid fa-shower"></i> Premium Shower Filter</a>
+            <a href="product-5.html" class="dropdown-item"><i class="fa-solid fa-glass-water"></i> Alkaline Pitcher</a>
+            <a href="product-6.html" class="dropdown-item"><i class="fa-solid fa-lightbulb"></i> UV Whole House Sterilizer</a>
+            <a href="product-7.html" class="dropdown-item"><i class="fa-solid fa-faucet"></i> Faucet-Mount Filter</a>
+            <a href="product-9.html" class="dropdown-item"><i class="fa-solid fa-water"></i> Iron & Manganese Filter</a>
+          </div>
+        </div>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </div>
-      <a href="cart.html" class="cart-icon active">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-count" id="cart-count">0</span>
-      </a>
+      <div class="nav-right">
+        <a href="cart.html" class="cart-icon active"><i class="fa-solid fa-cart-shopping"></i><span class="cart-count" id="cart-count">0</span></a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main>
-    <div class="container">
-      <h1>Your Cart</h1>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="shop.html" class="mobile-nav-link">Shop</a>
+    <div class="mobile-section-title">Products</div>
+    <a href="product-1.html" class="mobile-sub-link"><i class="fa-solid fa-house"></i> Whole House Softener</a>
+    <a href="product-2.html" class="mobile-sub-link"><i class="fa-solid fa-sink"></i> Under-Sink RO</a>
+    <a href="product-3.html" class="mobile-sub-link"><i class="fa-solid fa-bottle-water"></i> Countertop RO</a>
+    <a href="product-4.html" class="mobile-sub-link"><i class="fa-solid fa-shower"></i> Shower Filter</a>
+    <a href="product-5.html" class="mobile-sub-link"><i class="fa-solid fa-glass-water"></i> Alkaline Pitcher</a>
+    <a href="product-6.html" class="mobile-sub-link"><i class="fa-solid fa-lightbulb"></i> UV Sterilizer</a>
+    <a href="product-7.html" class="mobile-sub-link"><i class="fa-solid fa-faucet"></i> Faucet Filter</a>
+    <a href="product-9.html" class="mobile-sub-link"><i class="fa-solid fa-water"></i> Iron Filter</a>
+    <a href="about.html" class="mobile-nav-link" style="margin-top:1rem;">About</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+    <a href="shop.html" class="mobile-cta">Continue Shopping →</a>
+  </div>
 
-      <div id="cartEmpty" class="empty-cart" style="display: none;">
+  <!-- MAIN -->
+  <main>
+    <div class="page-header">
+      <h1>Your Cart <span id="cartCountHeading" style="color:var(--text-muted);font-weight:500;font-size:1.5rem;"></span></h1>
+    </div>
+
+    <!-- STEPS -->
+    <div class="checkout-steps">
+      <div class="cstep active">
+        <div class="cstep-num"><i class="fa-solid fa-cart-shopping" style="font-size:.65rem;"></i></div>
+        <span>Cart</span>
+      </div>
+      <div class="cstep-divider"></div>
+      <div class="cstep" id="step2">
+        <div class="cstep-num">2</div>
+        <span>Checkout</span>
+      </div>
+      <div class="cstep-divider"></div>
+      <div class="cstep">
+        <div class="cstep-num">3</div>
+        <span>Confirmation</span>
+      </div>
+    </div>
+
+    <!-- EMPTY -->
+    <div id="emptyState" style="display:none;">
+      <div class="empty-state">
         <i class="fa-solid fa-cart-plus"></i>
-        <p>Your cart is empty.</p>
-        <a href="shop.html" style="color: var(--ocean); font-size: 1.3rem; text-decoration: none; margin-top: 1.5rem; display: inline-block;">
-          Continue Shopping →
+        <h2>Your cart is empty</h2>
+        <p>Browse our water filtration systems and find the right solution for your home.</p>
+        <a href="shop.html" class="btn-ocean"><i class="fa-solid fa-store"></i> Shop All Systems</a>
+      </div>
+    </div>
+
+    <!-- CART LAYOUT -->
+    <div class="cart-layout" id="cartLayout">
+
+      <!-- LEFT: ITEMS -->
+      <div>
+        <div class="cart-items" id="cartItems"></div>
+
+        <!-- PROMO CODE -->
+        <div class="promo-wrap">
+          <div class="promo-row">
+            <input type="text" class="promo-input" id="promoInput" placeholder="Promo / referral code">
+            <button class="promo-btn" onclick="applyPromo()">Apply</button>
+          </div>
+          <div class="promo-msg" id="promoMsg"></div>
+        </div>
+
+        <a href="shop.html" class="continue-link">
+          <i class="fa-solid fa-arrow-left"></i> Continue Shopping
         </a>
       </div>
 
-      <div id="cartContent">
-        <div class="cart-items" id="cartItems"></div>
+      <!-- RIGHT: SUMMARY -->
+      <div class="order-sidebar">
+        <div class="summary-card">
+          <div class="summary-title">Order Summary</div>
 
-        <div class="cart-summary" id="cartSummary">
-          <div class="summary-row">
+          <div class="summary-line">
             <span>Subtotal</span>
-            <span id="subtotal">$0.00 CAD</span>
+            <span id="sumSubtotal">$0.00 CAD</span>
           </div>
-          <div class="summary-row">
-            <span>Shipping (Free in Alberta)</span>
-            <span>$0.00 CAD</span>
+          <div class="summary-line" id="discountRow" style="display:none;">
+            <span>Discount</span>
+            <span id="sumDiscount" class="discount-badge"></span>
           </div>
-          <div class="summary-total">
+          <div class="summary-line">
+            <span>Shipping</span>
+            <span><span class="free-badge">FREE</span></span>
+          </div>
+          <div class="summary-line">
+            <span>GST (5%)</span>
+            <span id="sumGST">$0.00 CAD</span>
+          </div>
+          <div class="summary-line total">
             <span>Total</span>
-            <span id="total">$0.00 CAD</span>
+            <span id="sumTotal">$0.00 CAD</span>
+          </div>
+          <p class="gst-note">Includes 5% GST · Free shipping across Alberta</p>
+
+          <button class="checkout-btn" id="checkoutBtn" onclick="goCheckout()">
+            <i class="fa-solid fa-lock"></i> Proceed to Checkout
+          </button>
+
+          <div class="secure-row">
+            <div class="secure-badge"><i class="fa-solid fa-lock"></i> SSL Secured</div>
+            <div class="secure-badge"><i class="fa-solid fa-rotate-left"></i> 30-Day Returns</div>
+            <div class="secure-badge"><i class="fa-solid fa-shield-halved"></i> NSF Certified</div>
           </div>
 
-          <button class="checkout-btn" id="checkoutBtn" disabled>
-            Proceed to Checkout
-          </button>
+          <div class="pay-logos">
+            <div class="pay-logo"><i class="fa-brands fa-cc-visa"></i> Visa</div>
+            <div class="pay-logo"><i class="fa-brands fa-cc-mastercard"></i> MC</div>
+            <div class="pay-logo"><i class="fa-brands fa-cc-amex"></i> Amex</div>
+            <div class="pay-logo"><i class="fa-brands fa-cc-apple-pay"></i> Apple Pay</div>
+          </div>
+        </div>
+
+        <!-- RECOMMENDED -->
+        <div class="recommended" id="recommended">
+          <h3>You might also need</h3>
+          <div class="rec-items" id="recItems"></div>
         </div>
       </div>
+
     </div>
   </main>
 
-  <!-- Footer -->
   <footer>
-    <div class="container">
-      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
-      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
-      <p>(403) 555-0123 • support@albertapure.ca</p>
-      <p style="margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
-    </div>
+    <p>© 2026 AlbertaPure · Calgary, Alberta · (403) 555-0123 · support@albertapure.ca</p>
   </footer>
 
+  <div id="toast"></div>
+
   <script>
+    // ===== DATA =====
+    const PRODUCTS = {
+      1: { name:'Whole House Water Softener', category:'Whole House', price:1299, img:'https://dlczb9lfz9r73.cloudfront.net/wp-content/uploads/2022/06/29223210/AdobeStock_459550106-scaled.jpeg', href:'product-1.html' },
+      2: { name:'6-Stage Under-Sink RO System', category:'Drinking Water', price:499, img:'https://www.thespruce.com/thmb/_FpnyyuepBj_yMlIxBWryNNi24k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-reverse-osmosis-systems-4586893-jay-wilde-b88c627b82da4a93827ca422b1ad9b8e.jpg', href:'product-2.html' },
+      3: { name:'Countertop RO Dispenser', category:'Drinking Water', price:399, img:'https://cf-images.us-east-1.prod.boltdns.net/v1/jit/1834613806001/b11dc548-2ff0-414b-927a-d7e7241bb6f7/main/1280x720/31s296ms/match/image.jpg', href:'product-3.html' },
+      4: { name:'Premium Shower Filter', category:'Shower & Bath', price:89, img:'https://m.media-amazon.com/images/I/610kemQPARL.jpg_BO30,255,255,255_UF750,750_SR1910,1000,0,C_QL100_.jpg', href:'product-4.html' },
+      5: { name:'Alkaline Gravity Pitcher', category:'Drinking Water', price:129, img:'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=200&q=80', href:'product-5.html' },
+      6: { name:'UV Whole House Sterilizer', category:'UV Sterilization', price:699, img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=200&q=80', href:'product-6.html' },
+      7: { name:'Faucet-Mount Filter', category:'Drinking Water', price:49, img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=200&q=80', href:'product-7.html' },
+      9: { name:'Iron & Manganese Filter', category:'Whole House', price:949, img:'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=200&q=80', href:'product-9.html' },
+    };
+
+    const PROMO_CODES = {
+      'ALBERTA10': 0.10,
+      'PURE15':    0.15,
+      'WELCOME20': 0.20,
+    };
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let discount = 0;
+    let promoApplied = '';
 
-    const cartItemsContainer = document.getElementById('cartItems');
-    const subtotalEl = document.getElementById('subtotal');
-    const totalEl = document.getElementById('total');
-    const cartCountEl = document.getElementById('cart-count');
-    const emptyCartEl = document.getElementById('cartEmpty');
-    const cartContentEl = document.getElementById('cartContent');
-    const checkoutBtn = document.getElementById('checkoutBtn');
+    // ===== RENDER CART =====
+    function render() {
+      const container = document.getElementById('cartItems');
+      const empty = document.getElementById('emptyState');
+      const layout = document.getElementById('cartLayout');
+      const countHead = document.getElementById('cartCountHeading');
+      const checkoutBtn = document.getElementById('checkoutBtn');
 
-    function updateCartDisplay() {
-      cartItemsContainer.innerHTML = '';
-      let subtotal = 0;
+      const totalItems = cart.reduce((s,i)=>s+(i.qty||1),0);
+      countHead.textContent = totalItems > 0 ? `(${totalItems} item${totalItems>1?'s':''})` : '';
+      document.getElementById('cart-count').textContent = totalItems;
 
       if (cart.length === 0) {
-        emptyCartEl.style.display = 'block';
-        cartContentEl.style.display = 'none';
-        checkoutBtn.disabled = true;
-      } else {
-        emptyCartEl.style.display = 'none';
-        cartContentEl.style.display = 'block';
-        checkoutBtn.disabled = false;
+        empty.style.display = 'block';
+        layout.style.display = 'none';
+        return;
+      }
 
-        cart.forEach((item, index) => {
-          const itemTotal = item.price * (item.qty || 1);
-          subtotal += itemTotal;
+      empty.style.display = 'none';
+      layout.style.display = 'grid';
+      checkoutBtn.disabled = false;
+      container.innerHTML = '';
 
-          const itemEl = document.createElement('div');
-          itemEl.className = 'cart-item';
-          itemEl.innerHTML = `
-            <img src="https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                 alt="${item.name}" class="item-image" loading="lazy">
-            <div class="item-info">
-              <div class="item-title">${item.name}</div>
-              <div class="item-price">$${item.price.toFixed(2)} CAD</div>
-              <div class="item-quantity">
-                <button class="qty-btn" onclick="changeQuantity(${index}, -1)">-</button>
-                <span class="qty-display">${item.qty || 1}</span>
-                <button class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
-              </div>
+      cart.forEach((item, idx) => {
+        const p = PRODUCTS[item.id] || {};
+        const qty = item.qty || 1;
+        const lineTotal = item.price * qty;
+
+        const el = document.createElement('div');
+        el.className = 'cart-item';
+        el.style.animationDelay = `${idx * 0.06}s`;
+        el.innerHTML = `
+          <img src="${p.img || ''}" alt="${item.name}" class="item-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?auto=format&fit=crop&w=200&q=80'">
+          <div class="item-details">
+            <div class="item-category">${p.category || 'Water System'}</div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-price-unit">$${item.price.toFixed(2)} CAD each</div>
+          </div>
+          <div class="item-actions">
+            <div class="item-total">$${lineTotal.toFixed(2)}</div>
+            <div class="qty-row">
+              <button class="qty-btn" onclick="changeQty(${idx}, -1)" aria-label="Decrease">−</button>
+              <span class="qty-num">${qty}</span>
+              <button class="qty-btn" onclick="changeQty(${idx}, 1)" aria-label="Increase">+</button>
             </div>
-            <button class="remove-btn" onclick="removeItem(${index})">
-              <i class="fa-solid fa-trash-can"></i>
+            <button class="remove-btn" onclick="removeItem(${idx})">
+              <i class="fa-solid fa-trash-can"></i> Remove
             </button>
-          `;
-          cartItemsContainer.appendChild(itemEl);
-        });
+          </div>
+        `;
+        container.appendChild(el);
+      });
+
+      updateTotals();
+      renderRecommended();
+    }
+
+    // ===== TOTALS =====
+    function updateTotals() {
+      const subtotal = cart.reduce((s,i)=>s+(i.price*(i.qty||1)), 0);
+      const discountAmt = subtotal * discount;
+      const afterDiscount = subtotal - discountAmt;
+      const gst = afterDiscount * 0.05;
+      const total = afterDiscount + gst;
+
+      document.getElementById('sumSubtotal').textContent = `$${subtotal.toFixed(2)} CAD`;
+      document.getElementById('sumGST').textContent = `$${gst.toFixed(2)} CAD`;
+      document.getElementById('sumTotal').textContent = `$${total.toFixed(2)} CAD`;
+
+      const discRow = document.getElementById('discountRow');
+      if (discount > 0) {
+        discRow.style.display = 'flex';
+        document.getElementById('sumDiscount').textContent = `−$${discountAmt.toFixed(2)} (${discount*100}% off)`;
+      } else {
+        discRow.style.display = 'none';
+      }
+    }
+
+    // ===== ACTIONS =====
+    function changeQty(idx, delta) {
+      if (!cart[idx]) return;
+      cart[idx].qty = Math.max(1, (cart[idx].qty || 1) + delta);
+      save();
+      render();
+    }
+
+    function removeItem(idx) {
+      const name = cart[idx]?.name || 'Item';
+      cart.splice(idx, 1);
+      save();
+      render();
+      showToast(`${name} removed`);
+    }
+
+    function save() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+    // ===== PROMO =====
+    function applyPromo() {
+      const code = document.getElementById('promoInput').value.trim().toUpperCase();
+      const msg = document.getElementById('promoMsg');
+
+      if (promoApplied) {
+        msg.className = 'promo-msg err';
+        msg.textContent = 'A promo code is already applied.';
+        return;
       }
 
-      subtotalEl.textContent = `$${subtotal.toFixed(2)} CAD`;
-      totalEl.textContent = `$${subtotal.toFixed(2)} CAD`; // + tax/shipping later
-      cartCountEl.textContent = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-    }
-
-    function changeQuantity(index, delta) {
-      if (cart[index]) {
-        cart[index].qty = Math.max(1, (cart[index].qty || 1) + delta);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartDisplay();
+      if (PROMO_CODES[code]) {
+        discount = PROMO_CODES[code];
+        promoApplied = code;
+        msg.className = 'promo-msg ok';
+        msg.textContent = `✓ Code "${code}" applied — ${discount*100}% off!`;
+        updateTotals();
+        showToast(`✓ Promo code applied!`);
+      } else {
+        msg.className = 'promo-msg err';
+        msg.textContent = 'Invalid promo code. Try ALBERTA10, PURE15, or WELCOME20.';
       }
     }
 
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      updateCartDisplay();
-    }
-
-    checkoutBtn.addEventListener('click', () => {
-      alert('Checkout functionality coming soon! Thank you for shopping with AlbertaPure.');
-      // Здесь можно добавить редирект на страницу оплаты или форму
+    // Trigger promo on Enter key
+    document.getElementById('promoInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') applyPromo();
     });
 
-    // Initial render
-    updateCartDisplay();
-  </script>
+    // ===== RECOMMENDED =====
+    const REC = [
+      { id:4, name:'Premium Shower Filter', price:89, img:'https://m.media-amazon.com/images/I/610kemQPARL.jpg_BO30,255,255,255_UF750,750_SR1910,1000,0,C_QL100_.jpg' },
+      { id:5, name:'Alkaline Pitcher', price:129, img:'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=200&q=80' },
+      { id:7, name:'Faucet-Mount Filter', price:49, img:'https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=200&q=80' },
+    ];
 
+    function renderRecommended() {
+      const inCart = cart.map(i => i.id);
+      const toShow = REC.filter(r => !inCart.includes(r.id)).slice(0, 2);
+      const wrap = document.getElementById('recommended');
+      const container = document.getElementById('recItems');
+
+      if (toShow.length === 0) { wrap.style.display = 'none'; return; }
+      wrap.style.display = 'block';
+      container.innerHTML = '';
+
+      toShow.forEach(r => {
+        const el = document.createElement('div');
+        el.className = 'rec-item';
+        el.innerHTML = `
+          <img src="${r.img}" alt="${r.name}" class="rec-img" loading="lazy">
+          <div class="rec-info">
+            <div class="rec-name">${r.name}</div>
+            <div class="rec-price">$${r.price} CAD</div>
+          </div>
+          <button class="rec-add" onclick="addRec(${r.id}, '${r.name}', ${r.price})">+ Add</button>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    function addRec(id, name, price) {
+      const ex = cart.find(i => i.id === id);
+      if (ex) { ex.qty = (ex.qty||1)+1; }
+      else { cart.push({id, name, price, qty:1}); }
+      save();
+      render();
+      showToast(`✓ ${name} added`);
+    }
+
+    // ===== CHECKOUT =====
+    function goCheckout() {
+      // Save cart state for checkout page
+      localStorage.setItem('cart', JSON.stringify(cart));
+      localStorage.setItem('cartDiscount', discount);
+      localStorage.setItem('cartPromo', promoApplied);
+      window.location.href = 'checkout.html';
+    }
+
+    // ===== MOBILE MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('open', menuOpen);
+      if (menuOpen) { mobileMenu.style.display='flex'; document.body.style.overflow='hidden'; requestAnimationFrame(()=>mobileMenu.classList.add('open')); }
+      else { mobileMenu.classList.remove('open'); document.body.style.overflow=''; setTimeout(()=>{mobileMenu.style.display='none';},350); }
+    });
+    mobileMenu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{if(menuOpen)hamburger.click();}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen)hamburger.click();});
+
+    // ===== TOAST =====
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.style.opacity='1'; t.style.transform='translateY(0)';
+      clearTimeout(window._tt);
+      window._tt = setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(12px)';},2500);
+    }
+
+    // ===== INIT =====
+    render();
+  </script>
 </body>
 </html>
