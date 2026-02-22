@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — AlbertaPure</title>
+  <meta name="description" content="Secure checkout for AlbertaPure water filtration systems. Free shipping across Alberta.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --deep-ocean: #001a33;
+      --navy: #0f172a;
+      --ocean: #0ea5e9;
+      --ocean-dark: #0284c7;
+      --ocean-glow: rgba(14, 165, 233, 0.12);
+      --text-light: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border-ocean: rgba(14, 165, 233, 0.22);
+      --success: #10b981;
+      --error: #ef4444;
+      --shadow: 0 12px 32px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--deep-ocean);
+      color: var(--text-light);
+      font-family: 'Outfit', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      position: fixed;
+      width: 100%; top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-ocean);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--ocean);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .nav-steps {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 0 1rem;
+    }
+
+    .step.active { color: var(--ocean); }
+    .step.done { color: var(--success); }
+
+    .step-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700;
+    }
+
+    .step-divider {
+      width: 30px; height: 1px;
+      background: var(--border-ocean);
+    }
+
+    .cart-icon {
+      font-size: 1.4rem;
+      color: var(--text-light);
+      position: relative;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .cart-icon:hover { color: var(--ocean); }
+
+    .cart-count {
+      position: absolute;
+      top: -8px; right: -10px;
+      background: #ef4444;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    main {
+      padding-top: 90px;
+      padding-bottom: 80px;
+      min-height: 100vh;
+    }
+
+    .checkout-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+      }
+      .order-summary { order: -1; }
+    }
+
+    /* ===== FORM CARD ===== */
+    .form-card {
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      padding: 2.2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-card + .form-card { margin-top: 1.5rem; }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: white;
+    }
+
+    .card-title i { color: var(--ocean); font-size: 1.1rem; }
+
+    /* ===== FORM ELEMENTS ===== */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+      color: #cbd5e1;
+      letter-spacing: 0.01em;
+    }
+
+    label .req { color: var(--ocean); margin-left: 2px; }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border-ocean);
+      border-radius: 0.75rem;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      transition: all 0.25s;
+      outline: none;
+    }
+
+    input::placeholder, textarea::placeholder { color: rgba(148,163,184,0.5); }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--ocean);
+      background: rgba(14,165,233,0.07);
+      box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+    }
+
+    input.error { border-color: var(--error); }
+    input.valid { border-color: var(--success); }
+
+    .field-error {
+      font-size: 0.82rem;
+      color: #f87171;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .field-error.show { display: block; }
+
+    select option { background: #0f172a; color: white; }
+
+    /* ===== PROVINCE SELECT ===== */
+    .province-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ===== PAYMENT SECTION ===== */
+    .payment-notice {
+      background: rgba(14, 165, 233, 0.08);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1rem;
+      padding: 1.1rem 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-notice i { color: var(--ocean); margin-top: 2px; flex-shrink: 0; }
+
+    .payment-logos {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-logo {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border-ocean);
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Card input group */
+    .card-input-group {
+      position: relative;
+    }
+
+    .card-input-group i {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .card-input-group input { padding-right: 2.8rem; }
+
+    .card-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .card-row { grid-template-columns: 1fr 1fr; }
+      .card-row .card-number { grid-column: 1 / -1; }
+    }
+
+    /* ===== ORDER SUMMARY ===== */
+    .order-summary {
+      position: sticky;
+      top: 100px;
+    }
+
+    .summary-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--border-ocean);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .summary-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .summary-items {
+      margin-bottom: 1.5rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .summary-items::-webkit-scrollbar { width: 4px; }
+    .summary-items::-webkit-scrollbar-track { background: transparent; }
+    .summary-items::-webkit-scrollbar-thumb { background: var(--border-ocean); border-radius: 4px; }
+
+    .summary-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(14,165,233,0.1);
+    }
+
+    .summary-item:last-child { border-bottom: none; }
+
+    .item-thumb {
+      width: 54px; height: 54px;
+      border-radius: 0.7rem;
+      object-fit: cover;
+      border: 1px solid var(--border-ocean);
+      flex-shrink: 0;
+    }
+
+    .item-details { flex: 1; min-width: 0; }
+
+    .item-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-qty { font-size: 0.85rem; color: var(--text-muted); }
+
+    .item-total {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ocean);
+      flex-shrink: 0;
+    }
+
+    /* Summary lines */
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.97rem;
+      padding: 0.5rem 0;
+      color: var(--text-muted);
+    }
+
+    .summary-line.total {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      border-top: 1px solid var(--border-ocean);
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+    }
+
+    .summary-line.total span:last-child { color: var(--ocean); }
+
+    .free-badge {
+      background: rgba(16,185,129,0.15);
+      color: #6ee7b7;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.15rem 0.6rem;
+      border-radius: 3rem;
+    }
+
+    .gst-note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* Security badges */
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(14,165,233,0.1);
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .badge i { color: var(--success); font-size: 0.85rem; }
+
+    /* ===== SUBMIT BUTTON ===== */
+    .submit-btn {
+      width: 100%;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, var(--ocean), var(--ocean-dark));
+      color: white;
+      border: none;
+      border-radius: 3rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.35);
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(14,165,233,0.5);
+    }
+
+    .submit-btn:disabled {
+      background: #334155;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .submit-btn .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== EMPTY CART STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 5rem 2rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .empty-state i {
+      font-size: 4.5rem;
+      color: var(--ocean);
+      opacity: 0.4;
+      margin-bottom: 1.5rem;
+    }
+
+    .empty-state h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+    .empty-state p { color: var(--text-muted); margin-bottom: 2rem; }
+
+    .btn-ocean {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      background: var(--ocean);
+      color: white;
+      border-radius: 3rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: all 0.3s;
+    }
+
+    .btn-ocean:hover {
+      background: var(--ocean-dark);
+      transform: translateY(-2px);
+    }
+
+    /* ===== SUCCESS OVERLAY ===== */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,10,25,0.97);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .success-overlay.show { display: flex; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .success-content { max-width: 520px; }
+
+    .success-icon {
+      width: 90px; height: 90px;
+      background: rgba(16,185,129,0.15);
+      border: 2px solid var(--success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--success);
+      margin: 0 auto 2rem;
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
+    .success-content h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 1rem; }
+    .success-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; }
+    .order-num { color: var(--ocean); font-weight: 700; font-size: 1.1rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border-ocean);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <i class="fa-solid fa-droplet"></i> AlbertaPure
+      </a>
+
+      <div class="nav-steps" id="navSteps">
+        <div class="step done" id="step-cart">
+          <div class="step-num"><i class="fa-solid fa-check" style="font-size:0.7rem;"></i></div>
+          <span>Cart</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step active" id="step-checkout">
+          <div class="step-num">2</div>
+          <span>Checkout</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step" id="step-confirm">
+          <div class="step-num">3</div>
+          <span>Confirmation</span>
+        </div>
+      </div>
+
+      <a href="cart.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="cart-count" id="cart-count">0</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+
+    <!-- Empty cart state -->
+    <div id="emptyState" style="display:none;">
+      <div class="empty-state">
+        <i class="fa-solid fa-cart-plus"></i>
+        <h2>Your cart is empty</h2>
+        <p>Add some water filtration systems before heading to checkout.</p>
+        <a href="shop.html" class="btn-ocean"><i class="fa-solid fa-arrow-left"></i> Back to Shop</a>
+      </div>
+    </div>
+
+    <!-- Checkout form -->
+    <div class="checkout-container" id="checkoutLayout">
+
+      <!-- LEFT: Forms -->
+      <div>
+
+        <!-- Contact -->
+        <div class="form-card">
+          <div class="card-title"><i class="fa-solid fa-user"></i> Contact Information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name <span class="req">*</span></label>
+              <input type="text" id="firstName" placeholder="John" autocomplete="given-name">
+              <div class="field-error" id="err-firstName">Please enter your first name.</div>
+            </div>
+            <div class="form-group">
+              <label>Last Name <span class="req">*</span></label>
+              <input type="text" id="lastName" placeholder="Smith" autocomplete="family-name">
+              <div class="field-error" id="err-lastName">Please enter your last name.</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="email" placeholder="john@email.com" autocomplete="email">
+              <div class="field-error" id="err-email">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+              <label>Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" placeholder="(403) 555-0123" autocomplete="tel">
+              <div class="field-error" id="err-phone">Please enter a valid phone number.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="form-card" style="margin-top:1.5rem;">
+          <div class="card-title"><i class="fa-solid fa-truck"></i> Shipping Address</div>
+
+          <div class="form-group">
+            <label>Street Address <span class="req">*</span></label>
+            <input type="text" id="address" placeholder="123 Main Street SW" autocomplete="street-address">
+            <div class="field-error" id="err-address">Please enter your address.</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>City <span class="req">*</span></label>
+              <input type="text" id="city" placeholder="Calgary" autocomplete="address-level2">
+              <div class="field-error" id="err-city">Please enter your city.</div>
+            </div>
+            <div class="form-group">
+              <label>Province <span class="req">*</span></label>
+              <select id="province" autocomplete="address-level1">
+                <option value="">Select province</option>
+                <option value="AB" selected>Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="MB">Manitoba</option>
+                <option value="ON">Ontario</option>
+                <option value="QC">Quebec</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NL">Newfoundland & Labrador</option>
+                <option value="PE">Prince Edward Island</option>
+              </select>
+              <div class="province-note" id="shippingNote">✓ Free shipping within Alberta</div>
+              <div class="field-error" id="err-province">Please select your province.</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Postal Code <span class="req">*</span></label>
+              <input type="text" id="postal" placeholder="T2P 1J9" autocomplete="postal-code" maxlength="7">
+              <div class="field-error" id="err-postal">Please enter a valid Canadian postal code.</div>
+            </div>
+            <div class="form-group">
+              <label>Apt / Suite <span style="opacity:0.5;font-weight:400;">(optional)</span></label>
+              <input type="text" id="apt" placeholder="Apt 4B">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Delivery Notes <span style="opacity:0.5;font-weight:400;">(optional)</span></label>
+            <input type="text" id="notes" placeholder="Leave at door, call on arrival, etc.">
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="form-card" style="margin-top:1.5rem;">
+          <div class="card-title"><i class="fa-solid fa-lock"></i> Payment</div>
+
+          <div class="payment-notice">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Your payment info is encrypted and processed securely. AlbertaPure never stores your card details.</span>
+          </div>
+
+          <div class="payment-logos">
+            <div class="payment-logo"><i class="fa-brands fa-cc-visa"></i> Visa</div>
+            <div class="payment-logo"><i class="fa-brands fa-cc-mastercard"></i> Mastercard</div>
+            <div class="payment-logo"><i class="fa-brands fa-cc-amex"></i> Amex</div>
+            <div class="payment-logo"><i class="fa-brands fa-cc-apple-pay"></i> Apple Pay</div>
+          </div>
+
+          <div class="form-group card-number">
+            <label>Card Number <span class="req">*</span></label>
+            <div class="card-input-group">
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric">
+              <i class="fa-solid fa-credit-card" id="cardIcon"></i>
+            </div>
+            <div class="field-error" id="err-cardNumber">Please enter a valid card number.</div>
+          </div>
+
+          <div class="card-row">
+            <div class="form-group card-number">
+              <label>Cardholder Name <span class="req">*</span></label>
+              <input type="text" id="cardName" placeholder="JOHN SMITH" autocomplete="cc-name">
+              <div class="field-error" id="err-cardName">Please enter the name on your card.</div>
+            </div>
+            <div class="form-group">
+              <label>Expiry <span class="req">*</span></label>
+              <input type="text" id="expiry" placeholder="MM / YY" maxlength="7" inputmode="numeric">
+              <div class="field-error" id="err-expiry">Invalid expiry date.</div>
+            </div>
+            <div class="form-group">
+              <label>CVV <span class="req">*</span></label>
+              <div class="card-input-group">
+                <input type="text" id="cvv" placeholder="123" maxlength="4" inputmode="numeric">
+                <i class="fa-solid fa-question-circle" style="cursor:help;" title="3-digit code on back of card"></i>
+              </div>
+              <div class="field-error" id="err-cvv">Invalid CVV.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Place order button -->
+        <button class="submit-btn" id="placeOrderBtn" onclick="placeOrder()">
+          <div class="spinner" id="btnSpinner"></div>
+          <i class="fa-solid fa-lock" id="btnIcon"></i>
+          <span id="btnText">Place Order Securely</span>
+        </button>
+
+        <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-top:1rem;">
+          By placing your order you agree to our <a href="#" style="color:var(--ocean);">Terms of Service</a> and <a href="#" style="color:var(--ocean);">Privacy Policy</a>.
+        </p>
+
+      </div>
+
+      <!-- RIGHT: Order Summary -->
+      <div class="order-summary">
+        <div class="summary-card">
+          <div class="summary-title">Order Summary</div>
+
+          <div class="summary-items" id="summaryItems">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <span id="summarySubtotal">$0.00 CAD</span>
+          </div>
+          <div class="summary-line">
+            <span>Shipping</span>
+            <span><span class="free-badge" id="shippingBadge">FREE</span></span>
+          </div>
+          <div class="summary-line">
+            <span>GST (5%)</span>
+            <span id="summaryGST">$0.00 CAD</span>
+          </div>
+          <div class="summary-line total">
+            <span>Total</span>
+            <span id="summaryTotal">$0.00 CAD</span>
+          </div>
+
+          <p class="gst-note">GST included in final total. No hidden fees.</p>
+
+          <div class="security-badges">
+            <div class="badge"><i class="fa-solid fa-lock"></i> SSL Secured</div>
+            <div class="badge"><i class="fa-solid fa-rotate-left"></i> 30-Day Returns</div>
+            <div class="badge"><i class="fa-solid fa-truck-fast"></i> Free AB Shipping</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== SUCCESS OVERLAY ===== -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-content">
+      <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+      <h2>Order Confirmed! 🎉</h2>
+      <p>
+        Thank you for choosing AlbertaPure.<br>
+        Your order <span class="order-num" id="orderNum">#AP-00000</span> has been received.<br><br>
+        A confirmation email has been sent to <strong id="confirmEmail">your email</strong>.<br>
+        Our Calgary team will contact you within 24 hours to schedule installation.
+      </p>
+      <div style="margin-top:2.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+        <a href="index.html" class="btn-ocean"><i class="fa-solid fa-house"></i> Back to Home</a>
+        <a href="shop.html" class="btn-ocean" style="background:rgba(14,165,233,0.15);border:1px solid var(--border-ocean);">
+          <i class="fa-solid fa-store"></i> Continue Shopping
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 AlbertaPure · Calgary, Alberta · (403) 555-0123 · support@albertapure.ca</p>
+  </footer>
+
+  <script>
+    // ===== LOAD CART =====
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const PRODUCT_IMAGES = {
+      1: 'https://dlczb9lfz9r73.cloudfront.net/wp-content/uploads/2022/06/29223210/AdobeStock_459550106-scaled.jpeg',
+      2: 'https://www.thespruce.com/thmb/_FpnyyuepBj_yMlIxBWryNNi24k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-reverse-osmosis-systems-4586893-jay-wilde-b88c627b82da4a93827ca422b1ad9b8e.jpg',
+      default: 'https://images.unsplash.com/photo-1581092160560-1c1e428e9d65?auto=format&fit=crop&w=200&q=80'
+    };
+
+    function getImg(id) { return PRODUCT_IMAGES[id] || PRODUCT_IMAGES.default; }
+
+    function renderSummary() {
+      const container = document.getElementById('summaryItems');
+      container.innerHTML = '';
+      let subtotal = 0;
+
+      cart.forEach(item => {
+        const qty = item.qty || 1;
+        const lineTotal = item.price * qty;
+        subtotal += lineTotal;
+
+        container.innerHTML += `
+          <div class="summary-item">
+            <img src="${getImg(item.id)}" alt="${item.name}" class="item-thumb">
+            <div class="item-details">
+              <div class="item-name">${item.name}</div>
+              <div class="item-qty">Qty: ${qty}</div>
+            </div>
+            <div class="item-total">$${lineTotal.toFixed(2)}</div>
+          </div>
+        `;
+      });
+
+      const gst = subtotal * 0.05;
+      const total = subtotal + gst;
+
+      document.getElementById('summarySubtotal').textContent = `$${subtotal.toFixed(2)} CAD`;
+      document.getElementById('summaryGST').textContent = `$${gst.toFixed(2)} CAD`;
+      document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)} CAD`;
+      document.getElementById('cart-count').textContent = cart.reduce((s, i) => s + (i.qty || 1), 0);
+    }
+
+    // ===== PROVINCE → SHIPPING COST =====
+    document.getElementById('province').addEventListener('change', function() {
+      const note = document.getElementById('shippingNote');
+      const badge = document.getElementById('shippingBadge');
+      if (this.value === 'AB' || this.value === '') {
+        note.textContent = '✓ Free shipping within Alberta';
+        note.style.color = '#6ee7b7';
+        badge.textContent = 'FREE';
+        badge.style.background = 'rgba(16,185,129,0.15)';
+        badge.style.color = '#6ee7b7';
+      } else {
+        note.textContent = 'ℹ Shipping costs may apply for other provinces';
+        note.style.color = '#94a3b8';
+        badge.textContent = 'Calculated';
+        badge.style.background = 'rgba(148,163,184,0.15)';
+        badge.style.color = '#94a3b8';
+      }
+    });
+
+    // ===== CARD NUMBER FORMAT =====
+    document.getElementById('cardNumber').addEventListener('input', function() {
+      let val = this.value.replace(/\D/g, '').substring(0, 16);
+      this.value = val.match(/.{1,4}/g)?.join(' ') || val;
+
+      const icon = document.getElementById('cardIcon');
+      if (val.startsWith('4')) { icon.className = 'fa-brands fa-cc-visa'; icon.style.color = '#1a73e8'; }
+      else if (val.startsWith('5')) { icon.className = 'fa-brands fa-cc-mastercard'; icon.style.color = '#eb001b'; }
+      else if (val.startsWith('3')) { icon.className = 'fa-brands fa-cc-amex'; icon.style.color = '#2e77bc'; }
+      else { icon.className = 'fa-solid fa-credit-card'; icon.style.color = ''; }
+    });
+
+    // ===== EXPIRY FORMAT =====
+    document.getElementById('expiry').addEventListener('input', function() {
+      let val = this.value.replace(/\D/g, '').substring(0, 4);
+      if (val.length >= 3) val = val.substring(0,2) + ' / ' + val.substring(2);
+      this.value = val;
+    });
+
+    // ===== POSTAL FORMAT =====
+    document.getElementById('postal').addEventListener('input', function() {
+      this.value = this.value.toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+    });
+
+    // ===== VALIDATION =====
+    function validateField(id, condition, errId) {
+      const el = document.getElementById(id);
+      const err = document.getElementById(errId);
+      if (!condition) {
+        el.classList.add('error');
+        el.classList.remove('valid');
+        err.classList.add('show');
+        return false;
+      } else {
+        el.classList.remove('error');
+        el.classList.add('valid');
+        err.classList.remove('show');
+        return true;
+      }
+    }
+
+    function validateAll() {
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const postal = document.getElementById('postal').value;
+      const cardNum = document.getElementById('cardNumber').value.replace(/\s/g, '');
+      const expiry = document.getElementById('expiry').value;
+      const cvv = document.getElementById('cvv').value;
+
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRe = /^[\d\s\(\)\-\+]{10,}$/;
+      const postalRe = /^[A-Z]\d[A-Z][ ]?\d[A-Z]\d$/;
+      const expiryRe = /^(0[1-9]|1[0-2])\s*\/\s*\d{2}$/;
+
+      let valid = true;
+      valid &= validateField('firstName', document.getElementById('firstName').value.trim().length > 1, 'err-firstName');
+      valid &= validateField('lastName', document.getElementById('lastName').value.trim().length > 1, 'err-lastName');
+      valid &= validateField('email', emailRe.test(email), 'err-email');
+      valid &= validateField('phone', phoneRe.test(phone), 'err-phone');
+      valid &= validateField('address', document.getElementById('address').value.trim().length > 3, 'err-address');
+      valid &= validateField('city', document.getElementById('city').value.trim().length > 1, 'err-city');
+      valid &= validateField('province', document.getElementById('province').value !== '', 'err-province');
+      valid &= validateField('postal', postalRe.test(postal), 'err-postal');
+      valid &= validateField('cardNumber', cardNum.length >= 13, 'err-cardNumber');
+      valid &= validateField('cardName', document.getElementById('cardName').value.trim().length > 3, 'err-cardName');
+      valid &= validateField('expiry', expiryRe.test(expiry), 'err-expiry');
+      valid &= validateField('cvv', /^\d{3,4}$/.test(cvv), 'err-cvv');
+
+      return !!valid;
+    }
+
+    // ===== PLACE ORDER =====
+    function placeOrder() {
+      if (!validateAll()) {
+        document.querySelector('.error')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      // Show loading state
+      const btn = document.getElementById('placeOrderBtn');
+      const spinner = document.getElementById('btnSpinner');
+      const icon = document.getElementById('btnIcon');
+      const text = document.getElementById('btnText');
+
+      btn.disabled = true;
+      spinner.style.display = 'block';
+      icon.style.display = 'none';
+      text.textContent = 'Processing...';
+
+      // ===================================================
+      // HERE: In production, POST to your backend / HubSpot
+      // ===================================================
+      const orderData = {
+        customer: {
+          firstName: document.getElementById('firstName').value,
+          lastName: document.getElementById('lastName').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value,
+        },
+        shipping: {
+          address: document.getElementById('address').value,
+          apt: document.getElementById('apt').value,
+          city: document.getElementById('city').value,
+          province: document.getElementById('province').value,
+          postal: document.getElementById('postal').value,
+          notes: document.getElementById('notes').value,
+        },
+        cart: cart,
+        orderTotal: parseFloat(document.getElementById('summaryTotal').textContent.replace(/[^0-9.]/g, '')),
+        timestamp: new Date().toISOString(),
+      };
+
+      console.log('Order data (ready for HubSpot):', orderData);
+
+      // Simulate processing (replace with real API call)
+      setTimeout(() => {
+        const orderNum = 'AP-' + Math.floor(10000 + Math.random() * 90000);
+        document.getElementById('orderNum').textContent = '#' + orderNum;
+        document.getElementById('confirmEmail').textContent = orderData.customer.email;
+
+        // Clear cart
+        localStorage.removeItem('cart');
+
+        // Show success
+        document.getElementById('successOverlay').classList.add('show');
+        document.getElementById('step-confirm').classList.add('active');
+      }, 2200);
+    }
+
+    // ===== INIT =====
+    if (cart.length === 0) {
+      document.getElementById('emptyState').style.display = 'block';
+      document.getElementById('checkoutLayout').style.display = 'none';
+    } else {
+      renderSummary();
+    }
+  </script>
+
+</body>
+</html>
