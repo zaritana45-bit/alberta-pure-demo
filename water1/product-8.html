@@ -3,366 +3,313 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whole House Water Softener — AlbertaPure</title>
+  <title>Iron & Manganese Filter — AlbertaPure</title>
+  <meta name="description" content="Eliminate rust stains and metallic taste — whole home. Shop AlbertaPure — Calgary's water filtration specialists.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --deep-ocean: #001a33;
-      --navy: #0f172a;
-      --ocean: #0ea5e9;
-      --ocean-dark: #0284c7;
-      --text-light: #f1f5f9;
-      --text-muted: #94a3b8;
-      --border-ocean: rgba(14, 165, 233, 0.25);
-      --success: #10b981;
-      --shadow: 0 12px 32px rgba(0,0,0,0.45);
+      --deep-ocean:#001a33; --navy:#0f172a; --ocean:#0ea5e9;
+      --ocean-dark:#0284c7; --ocean-glow:rgba(14,165,233,0.12);
+      --text-light:#f1f5f9; --text-muted:#94a3b8;
+      --border-ocean:rgba(14,165,233,0.22); --shadow:0 12px 32px rgba(0,0,0,0.5);
     }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--deep-ocean);color:var(--text-light);font-family:'Outfit',system-ui,sans-serif;line-height:1.6;min-height:100vh;}
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* NAV */
+    nav{background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);position:fixed;width:100%;top:0;z-index:1000;border-bottom:1px solid var(--border-ocean);box-shadow:0 4px 24px rgba(0,0,0,0.35);}
+    .nav-container{max-width:1400px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+    .logo{font-size:1.8rem;font-weight:800;color:var(--ocean);display:flex;align-items:center;gap:0.7rem;text-decoration:none;}
+    .nav-links{display:flex;gap:2.5rem;font-size:1.05rem;font-weight:500;align-items:center;}
+    .nav-links a{color:var(--text-light);text-decoration:none;transition:color .3s;}
+    .nav-links a:hover,.nav-links a.active{color:var(--ocean);}
+    .dropdown{position:relative;}
+    .dropdown>a::after{content:' ▾';font-size:.75rem;opacity:.6;}
+    .dropdown-content{display:none;position:absolute;top:calc(100% + 14px);left:0;background:rgba(10,18,38,0.98);backdrop-filter:blur(12px);min-width:300px;border-radius:1rem;border:1px solid var(--border-ocean);box-shadow:var(--shadow);padding:.8rem 0;z-index:999;}
+    .dropdown:hover .dropdown-content{display:block;}
+    .dropdown-item{display:flex;align-items:center;padding:.75rem 1.4rem;color:var(--text-light);text-decoration:none;font-size:.98rem;transition:all .2s;gap:.9rem;}
+    .dropdown-item:hover{background:var(--ocean-glow);color:var(--ocean);}
+    .dropdown-item i{width:20px;text-align:center;opacity:.8;}
+    .nav-right{display:flex;align-items:center;gap:1.5rem;}
+    .cart-icon{font-size:1.5rem;color:var(--text-light);position:relative;text-decoration:none;transition:color .3s;}
+    .cart-icon:hover{color:var(--ocean);}
+    .cart-count{position:absolute;top:-8px;right:-10px;background:#ef4444;color:white;font-size:.72rem;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none;}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--text-light);border-radius:2px;transition:all .3s;}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-menu{display:none;position:fixed;inset:0;background:rgba(0,10,25,0.98);backdrop-filter:blur(20px);z-index:999;padding:90px 2rem 2rem;flex-direction:column;overflow-y:auto;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);}
+    .mobile-menu.open{display:flex;transform:translateX(0);}
+    .mobile-nav-link{display:block;color:var(--text-light);font-size:1.6rem;font-weight:600;text-decoration:none;padding:1rem 0;border-bottom:1px solid rgba(14,165,233,.12);transition:color .2s;}
+    .mobile-nav-link:hover,.mobile-nav-link.active{color:var(--ocean);}
+    .mobile-section-title{font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ocean);margin:1.5rem 0 .5rem;}
+    .mobile-sub-link{display:flex;align-items:center;gap:.8rem;color:var(--text-muted);font-size:1.1rem;text-decoration:none;padding:.7rem 0;transition:color .2s;}
+    .mobile-sub-link:hover{color:var(--ocean);}
+    .mobile-sub-link i{width:18px;}
+    .mobile-cta{margin-top:2rem;display:block;padding:1rem 2rem;background:var(--ocean);color:white;font-size:1.1rem;font-weight:600;border-radius:3rem;text-decoration:none;text-align:center;}
 
-    body {
-      background: var(--deep-ocean);
-      color: var(--text-light);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.7;
-      min-height: 100vh;
-    }
+    /* BREADCRUMB */
+    .breadcrumb{padding-top:90px;padding-bottom:.5rem;max-width:1400px;margin:0 auto;padding-left:2rem;padding-right:2rem;font-size:.9rem;color:var(--text-muted);display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;}
+    .breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color .2s;}
+    .breadcrumb a:hover{color:var(--ocean);}
+    .breadcrumb span{opacity:.4;}
 
-    nav {
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(12px);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid var(--border-ocean);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.35);
-    }
+    /* PRODUCT HERO */
+    .product-hero{max-width:1400px;margin:0 auto;padding:1.5rem 2rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+    @media(max-width:900px){.product-hero{grid-template-columns:1fr;gap:2rem;}}
 
-    .nav-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 1.1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* IMAGE */
+    .img-container{position:relative;border-radius:1.8rem;overflow:hidden;border:1px solid var(--border-ocean);box-shadow:var(--shadow);}
+    .img-container img{width:100%;display:block;max-height:520px;object-fit:cover;}
+    .badge-ribbon{position:absolute;top:1.2rem;left:1.2rem;background:#8b5cf6;color:white;font-size:.8rem;font-weight:700;padding:.3rem .9rem;border-radius:3rem;text-transform:uppercase;letter-spacing:.04em;}
 
-    .logo {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: var(--ocean);
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
+    /* PRODUCT INFO */
+    .product-info .category{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ocean);margin-bottom:.5rem;}
+    .product-info h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.03em;margin-bottom:.7rem;line-height:1.15;}
+    .product-info .tagline{font-size:1.15rem;color:var(--text-muted);margin-bottom:1.5rem;font-style:italic;}
 
-    .nav-links {
-      display: flex;
-      gap: 2.8rem;
-      font-size: 1.15rem;
-      font-weight: 500;
-    }
+    /* PRICE */
+    .price-block{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.8rem;}
+    .price{font-size:2.8rem;font-weight:800;color:var(--ocean);letter-spacing:-.04em;}
+    .price-note{font-size:.95rem;color:var(--text-muted);}
 
-    .nav-links a {
-      color: var(--text-light);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
+    /* PERKS ROW */
+    .perks{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;}
+    .perk{display:flex;align-items:center;gap:.5rem;background:rgba(14,165,233,.08);border:1px solid var(--border-ocean);border-radius:3rem;padding:.35rem 1rem;font-size:.88rem;font-weight:500;color:#cbd5e1;}
+    .perk i{color:var(--ocean);font-size:.85rem;}
 
-    .nav-links a:hover {
-      color: var(--ocean);
-    }
+    /* BUTTONS */
+    .action-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;}
+    .btn-primary{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2rem;background:var(--ocean);color:white;font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:700;border:none;border-radius:3rem;cursor:pointer;transition:all .3s;box-shadow:0 8px 25px rgba(14,165,233,.35);text-decoration:none;}
+    .btn-primary:hover{background:var(--ocean-dark);transform:translateY(-3px);box-shadow:0 14px 35px rgba(14,165,233,.5);}
+    .btn-secondary{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2rem;background:rgba(255,255,255,.07);color:white;font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:600;border:1px solid rgba(255,255,255,.18);border-radius:3rem;cursor:pointer;transition:all .3s;text-decoration:none;}
+    .btn-secondary:hover{background:rgba(255,255,255,.13);transform:translateY(-3px);}
 
-    .cart-icon {
-      font-size: 1.6rem;
-      color: var(--text-light);
-      position: relative;
-      transition: color 0.3s ease;
-    }
+    /* FEATURES */
+    .features-section{background:rgba(15,23,42,.4);border-top:1px solid var(--border-ocean);padding:5rem 2rem;}
+    .features-inner{max-width:1400px;margin:0 auto;}
+    .features-inner h2{font-size:2rem;font-weight:800;text-align:center;margin-bottom:2.5rem;letter-spacing:-.03em;}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;}
+    .feature-card{background:rgba(15,23,42,.75);border:1px solid var(--border-ocean);border-radius:1.3rem;padding:1.8rem;backdrop-filter:blur(8px);transition:all .35s;}
+    .feature-card:hover{border-color:var(--ocean);transform:translateY(-6px);box-shadow:0 16px 32px rgba(0,0,0,.4);}
+    .feature-card i{font-size:1.8rem;color:var(--ocean);margin-bottom:.9rem;display:block;}
+    .feature-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.4rem;}
+    .feature-card p{font-size:.92rem;color:var(--text-muted);line-height:1.6;}
 
-    .cart-icon:hover {
-      color: var(--ocean);
-    }
+    /* SPECS */
+    .specs-section{padding:5rem 2rem;}
+    .specs-inner{max-width:900px;margin:0 auto;}
+    .specs-inner h2{font-size:2rem;font-weight:800;text-align:center;margin-bottom:2.5rem;letter-spacing:-.03em;}
+    .specs-table{background:rgba(15,23,42,.7);border:1px solid var(--border-ocean);border-radius:1.3rem;overflow:hidden;}
+    .spec-row{display:flex;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid rgba(14,165,233,.1);font-size:1rem;}
+    .spec-row:last-child{border-bottom:none;}
+    .spec-row:nth-child(even){background:rgba(14,165,233,.04);}
+    .spec-label{color:var(--text-muted);font-weight:500;}
+    .spec-value{color:white;font-weight:600;text-align:right;}
 
-    .cart-count {
-      position: absolute;
-      top: -10px;
-      right: -12px;
-      background: #ef4444;
-      color: white;
-      font-size: 0.8rem;
-      font-weight: bold;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    /* FOOTER */
+    footer{background:var(--navy);padding:3rem 2rem 2rem;border-top:1px solid var(--border-ocean);text-align:center;color:var(--text-muted);font-size:.9rem;}
 
-    main {
-      padding-top: 120px;
-      padding-bottom: 100px;
-    }
+    /* TOAST */
+    #toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--ocean);color:white;padding:.9rem 1.6rem;border-radius:3rem;font-size:1rem;font-weight:600;box-shadow:0 8px 25px rgba(14,165,233,.4);opacity:0;transform:translateY(12px);transition:all .3s ease;pointer-events:none;z-index:9999;}
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    .product-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3.5rem;
-      align-items: start;
-    }
-
-    @media (min-width: 992px) {
-      .product-layout {
-        grid-template-columns: 5fr 7fr;
-      }
-    }
-
-    .product-image-wrapper {
-      position: sticky;
-      top: 140px;
-    }
-
-    .product-image {
-      width: 100%;
-      border-radius: 1.6rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-ocean);
-      transition: transform 0.4s ease;
-    }
-
-    .product-image:hover {
-      transform: scale(1.02);
-    }
-
-    .product-details {
-      padding: 1rem 0;
-    }
-
-    .product-details h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 1.2rem;
-      color: white;
-      line-height: 1.1;
-    }
-
-    .price {
-      font-size: 3.5rem;
-      font-weight: 800;
-      color: var(--ocean);
-      margin-bottom: 2rem;
-      letter-spacing: -1px;
-    }
-
-    .add-to-cart-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      padding: 1.3rem 3rem;
-      background: linear-gradient(135deg, var(--ocean), var(--ocean-dark));
-      color: white;
-      border: none;
-      border-radius: 3rem;
-      font-size: 1.35rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.35s ease;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 8px 25px rgba(14,165,233,0.35);
-    }
-
-    .add-to-cart-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 16px 40px rgba(14,165,233,0.5);
-    }
-
-    .description {
-      font-size: 1.2rem;
-      color: #cbd5e1;
-      margin-bottom: 2.2rem;
-    }
-
-    h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: white;
-      margin: 3rem 0 1.6rem;
-      position: relative;
-      padding-bottom: 0.8rem;
-    }
-
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 80px;
-      height: 4px;
-      background: var(--ocean);
-      border-radius: 2px;
-    }
-
-    ul.specs {
-      list-style: none;
-      font-size: 1.15rem;
-      color: #cbd5e1;
-      margin-bottom: 2rem;
-    }
-
-    ul.specs li {
-      margin-bottom: 1.2rem;
-      padding-left: 2.2rem;
-      position: relative;
-    }
-
-    ul.specs li::before {
-      content: "✓";
-      color: var(--ocean);
-      position: absolute;
-      left: 0;
-      font-size: 1.3rem;
-      line-height: 1.6;
-    }
-
-    footer {
-      background: var(--navy);
-      padding: 5rem 2rem 3rem;
-      text-align: center;
-      border-top: 1px solid var(--border-ocean);
-    }
-
-    .footer-title {
-      font-size: 2rem;
-      color: var(--ocean);
-      margin-bottom: 1.2rem;
-      font-weight: 600;
-    }
+    @media(max-width:900px){.nav-links{display:none;}.hamburger{display:flex;}}
+    @media(max-width:600px){.nav-container{padding:1rem 1.2rem;}.product-hero{padding:1rem 1rem 3rem;}.action-row{flex-direction:column;}.btn-primary,.btn-secondary{justify-content:center;}}
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
   <nav>
     <div class="nav-container">
-      <div class="logo">
-        <i class="fa-solid fa-droplet"></i> AlbertaPure
-      </div>
+      <a href="index.html" class="logo"><i class="fa-solid fa-droplet"></i> AlbertaPure</a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
+        <div class="dropdown">
+          <a href="shop.html" class="active">Shop</a>
+          <div class="dropdown-content">
+            <a href="product-1.html" class="dropdown-item"><i class="fa-solid fa-house"></i> Whole House Softener</a>
+            <a href="product-2.html" class="dropdown-item"><i class="fa-solid fa-sink"></i> Under-Sink RO System</a>
+            <a href="product-3.html" class="dropdown-item"><i class="fa-solid fa-bottle-water"></i> Countertop RO Dispenser</a>
+            <a href="product-4.html" class="dropdown-item"><i class="fa-solid fa-shower"></i> Premium Shower Filter</a>
+            <a href="product-5.html" class="dropdown-item"><i class="fa-solid fa-glass-water"></i> Alkaline Pitcher</a>
+            <a href="product-6.html" class="dropdown-item"><i class="fa-solid fa-lightbulb"></i> UV Whole House Sterilizer</a>
+            <a href="product-7.html" class="dropdown-item"><i class="fa-solid fa-faucet"></i> Faucet-Mount Filter</a>
+            <a href="product-9.html" class="dropdown-item"><i class="fa-solid fa-water"></i> Iron &amp; Manganese Filter</a>
+          </div>
+        </div>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </div>
-      <a href="cart.html" class="cart-icon">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-count" id="cart-count">0</span>
-      </a>
+      <div class="nav-right">
+        <a href="cart.html" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i><span class="cart-count" id="cart-count">0</span></a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main>
-    <div class="container">
-      <div class="product-layout">
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="shop.html" class="mobile-nav-link active">Shop</a>
+    <div class="mobile-section-title">Products</div>
+    <a href="product-1.html" class="mobile-sub-link"><i class="fa-solid fa-house"></i> Whole House Softener</a>
+    <a href="product-2.html" class="mobile-sub-link"><i class="fa-solid fa-sink"></i> Under-Sink RO</a>
+    <a href="product-3.html" class="mobile-sub-link"><i class="fa-solid fa-bottle-water"></i> Countertop RO</a>
+    <a href="product-4.html" class="mobile-sub-link"><i class="fa-solid fa-shower"></i> Shower Filter</a>
+    <a href="product-5.html" class="mobile-sub-link"><i class="fa-solid fa-glass-water"></i> Alkaline Pitcher</a>
+    <a href="product-6.html" class="mobile-sub-link"><i class="fa-solid fa-lightbulb"></i> UV Sterilizer</a>
+    <a href="product-7.html" class="mobile-sub-link"><i class="fa-solid fa-faucet"></i> Faucet Filter</a>
+    <a href="product-9.html" class="mobile-sub-link"><i class="fa-solid fa-water"></i> Iron Filter</a>
+    <a href="about.html" class="mobile-nav-link" style="margin-top:1rem;">About</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+    <a href="shop.html" class="mobile-cta">All Products →</a>
+  </div>
 
-        <!-- Image (left / top) -->
-        <div class="product-image-wrapper">
-          <img 
-            src="https://dlczb9lfz9r73.cloudfront.net/wp-content/uploads/2022/06/29223210/AdobeStock_459550106-scaled.jpeg" 
-            alt="Whole House Water Softener System" 
-            class="product-image"
-            loading="lazy"
-          >
+  <div class="breadcrumb">
+    <a href="index.html">Home</a><span>/</span>
+    <a href="shop.html">Shop</a><span>/</span>
+    <span style="color:var(--text-light);">Iron & Manganese Filter</span>
+  </div>
+
+  <div class="product-hero">
+    <!-- IMAGE -->
+    <div class="img-container">
+      <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80" alt="Iron & Manganese Filter" loading="eager">
+      <div class="badge-ribbon" style="background:#8b5cf6;">Well Water</div>
+    </div>
+
+    <!-- INFO -->
+    <div class="product-info">
+      <div class="category">Whole House</div>
+      <h1>Iron & Manganese Filter</h1>
+      <div class="tagline">"Eliminate rust stains and metallic taste — whole home."</div>
+
+      <div class="price-block">
+        <div class="price">$949 <span style="font-size:1.1rem;font-weight:500;color:var(--text-muted);">CAD</span></div>
+      </div>
+
+      <div class="perks">
+        <div class="perk"><i class="fa-solid fa-truck-fast"></i> Free AB Shipping</div>
+        <div class="perk"><i class="fa-solid fa-rotate-left"></i> 30-Day Returns</div>
+        <div class="perk"><i class="fa-solid fa-shield-halved"></i> NSF Certified</div>
+        <div class="perk"><i class="fa-solid fa-headset"></i> Local Support</div>
+      </div>
+
+      <p style="font-size:1.05rem;color:#cbd5e1;line-height:1.8;margin-bottom:2rem;">Orange water. Rust rings in your toilet. Metallic taste in your coffee. Iron and manganese are common in Alberta well water and they make life miserable. Our Iron & Manganese Filter uses air injection oxidation to convert dissolved iron into particles that are then trapped and backwashed away — no chemicals, no salt, no hassle.</p>
+
+      <div class="action-row">
+        <button class="btn-primary" onclick="addToCart(9, 'Iron & Manganese Filter', 949, this)">
+          <i class="fa-solid fa-cart-plus"></i> Add to Cart
+        </button>
+        <a href="contact.html" class="btn-secondary">
+          <i class="fa-solid fa-phone"></i> Free Consultation
+        </a>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:.8rem;font-size:.9rem;color:var(--text-muted);">
+        <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+        In stock — Calgary install available within 48 hours
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features-section">
+    <div class="features-inner">
+      <h2>What Makes It Great</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="fa-solid fa-wind"></i>
+          <h3>Air Injection Oxidation</h3>
+          <p>Converts dissolved iron to filterable particles — no chemicals needed</p>
         </div>
-
-        <!-- Details (right / bottom) -->
-        <div class="product-details">
-          <h1>Whole House Water Softener System</h1>
-          <div class="price">$1,299 CAD</div>
-
-          <button 
-            class="add-to-cart-btn" 
-            onclick="addToCart(1, 'Whole House Water Softener System', 1299)"
-          >
-            <i class="fa-solid fa-cart-plus"></i> Add to Cart
-          </button>
-
-          <p class="description">
-            Protect your entire home from the damaging effects of hard water. This powerful system removes calcium and magnesium before they can build up in pipes, water heaters, faucets, showerheads, and appliances. Say goodbye to white scale, reduced water pressure, and enjoy noticeably softer water for showers, laundry, and dishes.
-          </p>
-
-          <p class="description">
-            Specially tuned for Alberta's tough hard water conditions — performs excellently in Calgary, Red Deer, Edmonton, Lethbridge, and rural well-water homes.
-          </p>
-
-          <h2>Key Features & Benefits</h2>
-          <ul class="specs">
-            <li>High-efficiency salt-based softening — uses up to 40% less salt than traditional models</li>
-            <li>Digital metered control head regenerates only when necessary</li>
-            <li>Capacity: 30,000–60,000 grains (model-dependent)</li>
-            <li>NSF/ANSI certified components for safety & performance</li>
-            <li>Included bypass valve for easy servicing</li>
-            <li>10-year warranty on tank, 5-year on valve</li>
-            <li>Professional installation available in the Calgary area</li>
-            <li>Free shipping province-wide in Alberta</li>
-          </ul>
-
-          <h2>Who It's For</h2>
-          <p class="description">
-            Ideal for families frustrated with scale buildup, dry skin after showers, spots on glassware, and shortened appliance life. If your water leaves white residue or feels unusually "slippery", this is the solution most Albertans trust.
-          </p>
+<div class="feature-card">
+          <i class="fa-solid fa-rotate"></i>
+          <h3>Auto Backwash</h3>
+          <p>Programmable controller backwashes automatically — fully hands-free</p>
+        </div>
+<div class="feature-card">
+          <i class="fa-solid fa-house"></i>
+          <h3>Whole-Home Protection</h3>
+          <p>Protects every tap, toilet, appliance and pipe in the home</p>
+        </div>
+<div class="feature-card">
+          <i class="fa-solid fa-vial"></i>
+          <h3>Removes Iron to 15 ppm</h3>
+          <p>Handles even severely iron-impacted well water</p>
+        </div>
+<div class="feature-card">
+          <i class="fa-solid fa-plug"></i>
+          <h3>No Salt Required</h3>
+          <p>Unlike softeners — no salt, no brine, lower operating costs</p>
+        </div>
+<div class="feature-card">
+          <i class="fa-solid fa-wrench"></i>
+          <h3>Pro Install Included</h3>
+          <p>Our team sizes, installs and tests everything on site</p>
         </div>
 
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
-      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
-      <p>(403) 555-0123 • support@albertapure.ca</p>
-      <p style="margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+  <!-- SPECS -->
+  <div class="specs-section">
+    <div class="specs-inner">
+      <h2>Specifications</h2>
+      <div class="specs-table">
+        <div class="spec-row"><span class="spec-label">Iron Removal</span><span class="spec-value">Up to 15 ppm</span></div>
+<div class="spec-row"><span class="spec-label">Manganese</span><span class="spec-value">Up to 3 ppm</span></div>
+<div class="spec-row"><span class="spec-label">Flow Rate</span><span class="spec-value">10 GPM</span></div>
+<div class="spec-row"><span class="spec-label">Backwash</span><span class="spec-value">Auto Programmed</span></div>
+<div class="spec-row"><span class="spec-label">Media</span><span class="spec-value">Birm + Katalox</span></div>
+<div class="spec-row"><span class="spec-label">Warranty</span><span class="spec-value">10 yr tank / 5 yr valve</span></div>
+
+      </div>
     </div>
+  </div>
+
+  <footer>
+    <p>© 2026 AlbertaPure · Calgary, Alberta · (403) 555-0123 · support@albertapure.ca</p>
   </footer>
+
+  <div id="toast"></div>
 
   <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
     function updateCartCount() {
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
-      document.getElementById('cart-count').textContent = count;
+      document.getElementById('cart-count').textContent = cart.reduce((s,i)=>s+(i.qty||1),0);
     }
-
-    function addToCart(id, name, price) {
-      const existing = cart.find(item => item.id === id);
-      if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
-      } else {
-        cart.push({ id, name, price, qty: 1 });
-      }
+    function addToCart(id, name, price, btn) {
+      const ex = cart.find(i=>i.id===id);
+      if(ex) ex.qty=(ex.qty||1)+1; else cart.push({id,name,price,qty:1});
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
-      alert(`${name} added to cart!`);
+      showToast('✓ '+name+' added to cart');
+      const orig = btn.innerHTML;
+      btn.innerHTML='<i class="fa-solid fa-check"></i> Added!';
+      btn.style.background='#10b981';
+      setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';}, 1800);
     }
-
+    function showToast(msg) {
+      const t=document.getElementById('toast');
+      t.textContent=msg; t.style.opacity='1'; t.style.transform='translateY(0)';
+      clearTimeout(window._tt);
+      window._tt=setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(12px)';},2500);
+    }
+    const hamburger=document.getElementById('hamburger');
+    const mobileMenu=document.getElementById('mobileMenu');
+    let menuOpen=false;
+    hamburger.addEventListener('click',()=>{
+      menuOpen=!menuOpen;
+      hamburger.classList.toggle('open',menuOpen);
+      if(menuOpen){mobileMenu.style.display='flex';document.body.style.overflow='hidden';requestAnimationFrame(()=>mobileMenu.classList.add('open'));}
+      else{mobileMenu.classList.remove('open');document.body.style.overflow='';setTimeout(()=>{mobileMenu.style.display='none';},350);}
+    });
+    mobileMenu.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{if(menuOpen)hamburger.click();}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuOpen)hamburger.click();});
     updateCartCount();
   </script>
-
 </body>
 </html>
