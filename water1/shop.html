@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop Water Systems — AlbertaPure</title>
+  <meta name="description" content="Shop Alberta's best water filtration systems. Whole-house softeners, RO systems, UV sterilizers, shower filters. Free shipping across Alberta.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -12,33 +14,30 @@
       --navy: #0f172a;
       --ocean: #0ea5e9;
       --ocean-dark: #0284c7;
+      --ocean-glow: rgba(14, 165, 233, 0.12);
       --text-light: #f1f5f9;
       --text-muted: #94a3b8;
-      --border-ocean: rgba(14, 165, 233, 0.25);
+      --border-ocean: rgba(14, 165, 233, 0.22);
       --shadow: 0 12px 32px rgba(0,0,0,0.5);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       background: var(--deep-ocean);
       color: var(--text-light);
-      font-family: system-ui, -apple-system, sans-serif;
+      font-family: 'Outfit', system-ui, sans-serif;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* Навигация */
+    /* ===== NAV ===== */
     nav {
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       position: fixed;
-      width: 100%;
-      top: 0;
+      width: 100%; top: 0;
       z-index: 1000;
       border-bottom: 1px solid var(--border-ocean);
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
@@ -47,153 +46,287 @@
     .nav-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 1.1rem 2rem;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      font-size: 1.9rem;
-      font-weight: 700;
+      font-size: 1.8rem;
+      font-weight: 800;
       color: var(--ocean);
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.7rem;
+      text-decoration: none;
+      letter-spacing: -0.02em;
     }
 
     .nav-links {
       display: flex;
-      gap: 2.8rem;
-      font-size: 1.15rem;
+      gap: 2.5rem;
+      font-size: 1.05rem;
       font-weight: 500;
-      position: relative;
+      align-items: center;
     }
 
     .nav-links a {
       color: var(--text-light);
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color 0.3s;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--ocean);
-    }
+    .nav-links a:hover, .nav-links a.active { color: var(--ocean); }
 
-    /* Dropdown */
-    .dropdown {
-      position: relative;
-    }
+    .dropdown { position: relative; }
+    .dropdown > a::after { content: ' ▾'; font-size: 0.75rem; opacity: 0.6; }
 
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 100%;
+      top: calc(100% + 14px);
       left: 0;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(10px);
-      min-width: 320px;
+      background: rgba(10, 18, 38, 0.98);
+      backdrop-filter: blur(12px);
+      min-width: 300px;
       border-radius: 1rem;
       border: 1px solid var(--border-ocean);
       box-shadow: var(--shadow);
-      padding: 1.2rem 0;
+      padding: 0.8rem 0;
       z-index: 999;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: all 0.25s ease;
     }
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .dropdown:hover .dropdown-content { display: block; }
 
     .dropdown-item {
       display: flex;
       align-items: center;
-      padding: 0.9rem 1.5rem;
+      padding: 0.75rem 1.4rem;
       color: var(--text-light);
       text-decoration: none;
+      font-size: 0.98rem;
       transition: all 0.2s;
+      gap: 0.9rem;
     }
 
-    .dropdown-item:hover {
-      background: rgba(14, 165, 233, 0.15);
-      color: var(--ocean);
-    }
+    .dropdown-item:hover { background: var(--ocean-glow); color: var(--ocean); }
+    .dropdown-item i { width: 20px; text-align: center; opacity: 0.8; }
 
-    .dropdown-item i {
-      margin-right: 1rem;
-      font-size: 1.3rem;
-      opacity: 0.8;
-    }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
 
     .cart-icon {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--text-light);
       position: relative;
-      transition: color 0.3s ease;
+      text-decoration: none;
+      transition: color 0.3s;
     }
 
-    .cart-icon:hover {
-      color: var(--ocean);
-    }
+    .cart-icon:hover { color: var(--ocean); }
 
     .cart-count {
       position: absolute;
-      top: -10px;
-      right: -12px;
+      top: -8px; right: -10px;
       background: #ef4444;
       color: white;
-      font-size: 0.8rem;
-      font-weight: bold;
-      width: 24px;
-      height: 24px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      width: 20px; height: 20px;
       border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ===== HAMBURGER ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border: none;
+      background: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text-light);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 10, 25, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      padding: 90px 2rem 2rem;
+      flex-direction: column;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu.open { display: flex; transform: translateX(0); }
+
+    .mobile-nav-link {
+      display: block;
+      color: var(--text-light);
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(14, 165, 233, 0.12);
+      transition: color 0.2s;
+    }
+
+    .mobile-nav-link:hover, .mobile-nav-link.active { color: var(--ocean); }
+
+    .mobile-section-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ocean);
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .mobile-sub-link {
       display: flex;
       align-items: center;
+      gap: 0.8rem;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      text-decoration: none;
+      padding: 0.7rem 0;
+      transition: color 0.2s;
+    }
+
+    .mobile-sub-link:hover { color: var(--ocean); }
+    .mobile-sub-link i { width: 18px; }
+
+    .mobile-cta {
+      margin-top: 2rem;
+      display: block;
+      padding: 1rem 2rem;
+      background: var(--ocean);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 3rem;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      padding-top: 110px;
+      padding-bottom: 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(14,165,233,0.05) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border-ocean);
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.7rem;
+    }
+
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      max-width: 1400px;
+      margin: 2rem auto 0;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
       justify-content: center;
     }
 
-    /* Остальные стили (main, products-grid, footer и т.д.) — без изменений */
-    main {
-      padding-top: 120px;
-      padding-bottom: 100px;
+    .filter-btn {
+      padding: 0.55rem 1.3rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-ocean);
+      border-radius: 3rem;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s;
     }
 
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+    .filter-btn:hover { border-color: var(--ocean); color: var(--ocean); }
 
-    h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 1.5rem;
+    .filter-btn.active {
+      background: var(--ocean);
+      border-color: var(--ocean);
       color: white;
     }
 
-    .subtitle {
-      font-size: 1.4rem;
-      text-align: center;
-      color: var(--text-muted);
-      margin-bottom: 3.5rem;
+    /* ===== MAIN GRID ===== */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
     }
+
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .results-count {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+    }
+
+    .results-count span { color: white; font-weight: 600; }
+
+    .sort-select {
+      padding: 0.55rem 1rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-ocean);
+      border-radius: 0.7rem;
+      color: var(--text-light);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .sort-select:focus { border-color: var(--ocean); }
+    .sort-select option { background: #0f172a; }
 
     .products-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     }
 
-    @media (min-width: 640px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
-    @media (min-width: 1280px) { .products-grid { grid-template-columns: repeat(4, 1fr); } }
-
+    /* ===== PRODUCT CARD ===== */
     .product-card {
       background: rgba(15, 23, 42, 0.75);
       border: 1px solid var(--border-ocean);
@@ -201,54 +334,131 @@
       overflow: hidden;
       transition: all 0.4s ease;
       backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
     .product-card:hover {
-      transform: translateY(-12px);
+      transform: translateY(-10px);
       border-color: var(--ocean);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), 0 0 40px rgba(14,165,233,0.07);
+    }
+
+    .product-card.hidden { display: none; }
+
+    /* Badge */
+    .badge-ribbon {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--ocean);
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: 3rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .badge-ribbon.popular { background: #f59e0b; }
+    .badge-ribbon.sale { background: #ef4444; }
+
+    /* Image wrapper */
+    .product-img-wrap {
+      position: relative;
+      overflow: hidden;
+      height: 230px;
     }
 
     .product-img {
       width: 100%;
-      height: 240px;
+      height: 100%;
       object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
     }
 
+    .product-card:hover .product-img { transform: scale(1.05); }
+
+    /* Info */
     .product-info {
-      padding: 1.75rem;
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-category {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ocean);
+      margin-bottom: 0.4rem;
     }
 
     .product-title {
-      font-size: 1.35rem;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .product-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .product-title a:hover { color: var(--ocean); }
+
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: auto;
     }
 
     .product-price {
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 1.6rem;
+      font-weight: 800;
       color: var(--ocean);
-      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
     }
 
-    .product-desc {
+    .product-price small {
+      font-size: 0.85rem;
+      font-weight: 500;
       color: var(--text-muted);
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
+      letter-spacing: 0;
     }
 
     .add-btn {
-      width: 100%;
-      padding: 1rem;
+      padding: 0.7rem 1.3rem;
       background: var(--ocean);
       color: white;
       border: none;
-      border-radius: 1rem;
-      font-size: 1.1rem;
+      border-radius: 0.8rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.97rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .add-btn:hover {
@@ -256,34 +466,152 @@
       transform: translateY(-2px);
     }
 
+    .add-btn.added {
+      background: #10b981;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    .no-results i { font-size: 3rem; color: var(--ocean); opacity: 0.3; margin-bottom: 1rem; }
+
+    /* ===== TRUST STRIP ===== */
+    .trust-strip {
+      background: rgba(14, 165, 233, 0.06);
+      border-top: 1px solid var(--border-ocean);
+      border-bottom: 1px solid var(--border-ocean);
+      padding: 1.2rem 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .trust-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem 4rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .trust-item i { color: var(--ocean); }
+
+    /* ===== FOOTER ===== */
     footer {
       background: var(--navy);
-      padding: 5rem 2rem 3rem;
-      text-align: center;
+      padding: 4rem 2rem 2.5rem;
       border-top: 1px solid var(--border-ocean);
     }
 
-    .footer-title {
-      font-size: 2rem;
+    .footer-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; margin-top: 0.8rem; }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
       color: var(--ocean);
-      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .footer-col h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--ocean); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-ocean);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* ===== TOAST ===== */
+    #toast {
+      position: fixed;
+      bottom: 1.5rem; right: 1.5rem;
+      background: var(--ocean);
+      color: white;
+      padding: 0.9rem 1.6rem;
+      border-radius: 3rem;
+      font-size: 1rem;
       font-weight: 600;
+      box-shadow: 0 8px 25px rgba(14,165,233,0.4);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-container { padding: 1rem 1.2rem; }
+      main { padding: 2rem 1rem 4rem; }
+      .filter-bar { padding: 0 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar с dropdown -->
+  <!-- ===== NAV ===== -->
   <nav>
     <div class="nav-container">
-      <div class="logo">
+      <a href="index.html" class="logo">
         <i class="fa-solid fa-droplet"></i> AlbertaPure
-      </div>
+      </a>
 
       <div class="nav-links">
         <a href="index.html">Home</a>
-
-        <!-- Dropdown Shop -->
         <div class="dropdown">
           <a href="shop.html" class="active">Shop</a>
           <div class="dropdown-content">
@@ -297,163 +625,312 @@
             <a href="product-9.html" class="dropdown-item"><i class="fa-solid fa-water"></i> Iron & Manganese Filter</a>
           </div>
         </div>
-
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
       </div>
 
-      <a href="cart.html" class="cart-icon">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="cart-count" id="cart-count">0</span>
-      </a>
+      <div class="nav-right">
+        <a href="cart.html" class="cart-icon">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </nav>
 
-   <!-- Main -->
+  <!-- ===== MOBILE MENU ===== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-nav-link">Home</a>
+    <a href="shop.html" class="mobile-nav-link active">Shop</a>
+    <div class="mobile-section-title">Products</div>
+    <a href="product-1.html" class="mobile-sub-link"><i class="fa-solid fa-house"></i> Whole House Softener</a>
+    <a href="product-2.html" class="mobile-sub-link"><i class="fa-solid fa-sink"></i> Under-Sink RO System</a>
+    <a href="product-3.html" class="mobile-sub-link"><i class="fa-solid fa-bottle-water"></i> Countertop RO Dispenser</a>
+    <a href="product-4.html" class="mobile-sub-link"><i class="fa-solid fa-shower"></i> Premium Shower Filter</a>
+    <a href="product-5.html" class="mobile-sub-link"><i class="fa-solid fa-glass-water"></i> Alkaline Pitcher</a>
+    <a href="product-6.html" class="mobile-sub-link"><i class="fa-solid fa-lightbulb"></i> UV Sterilizer</a>
+    <a href="product-7.html" class="mobile-sub-link"><i class="fa-solid fa-faucet"></i> Faucet-Mount Filter</a>
+    <a href="product-9.html" class="mobile-sub-link"><i class="fa-solid fa-water"></i> Iron & Manganese Filter</a>
+    <a href="about.html" class="mobile-nav-link" style="margin-top:1rem;">About</a>
+    <a href="contact.html" class="mobile-nav-link">Contact</a>
+    <a href="shop.html" class="mobile-cta">View All Systems →</a>
+  </div>
+
+  <!-- ===== PAGE HEADER ===== -->
+  <div class="page-header">
+    <h1>Shop Water Systems</h1>
+    <p>Solutions for hard water, iron, chlorine & more — built for Alberta homes</p>
+
+    <!-- Filter buttons -->
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Systems</button>
+      <button class="filter-btn" data-filter="whole-house">Whole House</button>
+      <button class="filter-btn" data-filter="drinking">Drinking Water</button>
+      <button class="filter-btn" data-filter="shower">Shower & Bath</button>
+      <button class="filter-btn" data-filter="uv">UV & Bacteria</button>
+    </div>
+  </div>
+
+  <!-- Trust strip -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> NSF/ANSI Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-truck-fast"></i> Free Alberta Shipping</div>
+      <div class="trust-item"><i class="fa-solid fa-rotate-left"></i> 30-Day Returns</div>
+      <div class="trust-item"><i class="fa-solid fa-wrench"></i> Same-Day Install Available</div>
+      <div class="trust-item"><i class="fa-solid fa-headset"></i> Calgary-Based Support</div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN ===== -->
   <main>
-    <div class="container">
-      <h1>Shop Water Filtration Systems</h1>
-      <p class="subtitle">Solutions for hard water, iron, chlorine & more — built for Alberta homes</p>
-
-     <div class="products-grid">
-
-  <!-- 1. Whole House Water Softener -->
-  <div class="product-card">
-    <a href="product-1.html">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-1.html" style="color:inherit; text-decoration:none;">Whole House Water Softener</a></h3>
-      <div class="product-price">$1,299 CAD</div>
-      <p class="product-desc">Eliminates scale in pipes, appliances & every faucet</p>
-      <button type="button" class="add-btn" onclick="addToCart(1, 'House Water Softener', 1299)">Add to Cart</button>
+    <div class="results-bar">
+      <div class="results-count">Showing <span id="resultCount">8</span> products</div>
+      <select class="sort-select" id="sortSelect">
+        <option value="default">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name">Name: A–Z</option>
+      </select>
     </div>
-  </div>
 
-  <!-- 2. Countertop RO Dispenser -->
-  <div class="product-card">
-    <a href="product-3.html">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-2.html" style="color:inherit; text-decoration:none;">Countertop RO Dispenser</a></h3>
-      <div class="product-price">$299 CAD</div>
-      <p class="product-desc">No installation — plug & pure water instantly</p>
-      <button type="button" class="add-btn" onclick="addToCart(3, 'Countertop RO Dispenser', 399)">Add to Cart</button>
-    </div>
-  </div>
+    <div class="products-grid" id="productsGrid">
 
-  <!-- 3. Countertop RO Dispenser -->
-  <div class="product-card">
-    <a href="product-3.html">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-3.html" style="color:inherit; text-decoration:none;">Countertop RO Dispenser</a></h3>
-      <div class="product-price">$399 CAD</div>
-      <p class="product-desc">No installation — plug & pure water instantly</p>
-      <button type="button" class="add-btn" onclick="addToCart(3, 'Countertop RO Dispenser', 399)">Add to Cart</button>
-    </div>
-  </div>
-
-  <!-- 4. Premium Shower Filter -->
-  <div class="product-card">
-    <a href="product-4.html">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-4.html" style="color:inherit; text-decoration:none;">Premium Shower Filter</a></h3>
-      <div class="product-price">$89 CAD</div>
-      <p class="product-desc">Chlorine-free showers, softer skin & hair</p>
-      <button type="button" class="add-btn" onclick="addToCart(4, 'Premium Shower Filter', 89)">Add to Cart</button>
-    </div>
-  </div>
-
-  <!-- 5. Alkaline Gravity Pitcher -->
-  <div class="product-card">
-    <a href="product-5.html">
-      <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Alkaline Gravity Water Pitcher" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-5.html" style="color:inherit; text-decoration:none;">Alkaline Gravity Pitcher</a></h3>
-      <div class="product-price">$129 CAD</div>
-      <p class="product-desc">Raises pH, adds minerals — great taste</p>
-      <button type="button" class="add-btn" onclick="addToCart(5, 'Alkaline Gravity Pitcher', 129)">Add to Cart</button>
-    </div>
-  </div>
-
-  <!-- 6. UV Whole House Sterilizer -->
-  <div class="product-card">
-    <a href="product-6.html">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Countertop Reverse Osmosis Dispenser" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-6.html" style="color:inherit; text-decoration:none;">UV Whole House Sterilizer</a></h3>
-      <div class="product-price">$699 CAD</div>
-      <p class="product-desc">Kills bacteria & viruses — safe well water</p>
-      <button type="button" class="add-btn" onclick="addToCart(6, 'UV Whole House Sterilizer', 699)">Add to Cart</button>
-    </div>
-  </div>
-
-  <!-- 7. Alkaline Gravity Pitcher -->
-  <div class="product-card">
-    <a href="product-7.html">
-      <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Alkaline Gravity Water Pitcher" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-7.html" style="color:inherit; text-decoration:none;">Alkaline Gravity Pitcher</a></h3>
-      <div class="product-price">$1209 CAD</div>
-      <p class="product-desc">Raises pH, adds minerals — great taste</p>
-      <button type="button" class="add-btn" onclick="addToCart(7, 'Alkaline Gravity Pitcher', 1209)">Add to Cart</button>
-    </div>
-  </div>
-  <!-- 8. Alkaline Gravity Pitcher -->
-  <div class="product-card">
-    <a href="product-8.html">
-      <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a6b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-           alt="Alkaline Gravity Water Pitcher" class="product-img">
-    </a>
-    <div class="product-info">
-      <h3 class="product-title"><a href="product-8.html" style="color:inherit; text-decoration:none;">Alkaline Gravity Pitcher</a></h3>
-      <div class="product-price">$1209 CAD</div>
-      <p class="product-desc">Raises pH, adds minerals — great taste</p>
-      <button type="button" class="add-btn" onclick="addToCart(8, 'Alkaline Gravity Pitcher', 1209)">Add to Cart</button>
-    </div>
-  </div>
-
-</div>
-
+      <!-- 1. Whole House Water Softener -->
+      <div class="product-card" data-category="whole-house" data-price="1299" data-name="Whole House Water Softener">
+        <span class="badge-ribbon popular">Most Popular</span>
+        <div class="product-img-wrap">
+          <a href="product-1.html">
+            <img src="https://dlczb9lfz9r73.cloudfront.net/wp-content/uploads/2022/06/29223210/AdobeStock_459550106-scaled.jpeg"
+                 alt="Whole House Water Softener" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Whole House</div>
+          <div class="product-title"><a href="product-1.html">Whole House Water Softener</a></div>
+          <div class="product-desc">Eliminates hard water scale in every pipe, appliance and faucet throughout your home. Ideal for Calgary's mineral-heavy water.</div>
+          <div class="product-footer">
+            <div class="product-price">$1,299 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(1, 'Whole House Water Softener', 1299, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
       </div>
+
+      <!-- 2. Under-Sink RO System -->
+      <div class="product-card" data-category="drinking" data-price="499" data-name="6-Stage Under-Sink RO System">
+        <div class="product-img-wrap">
+          <a href="product-2.html">
+            <img src="https://www.thespruce.com/thmb/_FpnyyuepBj_yMlIxBWryNNi24k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/best-reverse-osmosis-systems-4586893-jay-wilde-b88c627b82da4a93827ca422b1ad9b8e.jpg"
+                 alt="Under-Sink RO System" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Drinking Water</div>
+          <div class="product-title"><a href="product-2.html">6-Stage Under-Sink RO System</a></div>
+          <div class="product-desc">Removes up to 99.9% of contaminants directly at your kitchen tap. NSF-certified 6-stage filtration with remineralization.</div>
+          <div class="product-footer">
+            <div class="product-price">$499 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(2, '6-Stage Under-Sink RO System', 499, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Countertop RO Dispenser -->
+      <div class="product-card" data-category="drinking" data-price="399" data-name="Countertop RO Dispenser">
+        <span class="badge-ribbon">No Install</span>
+        <div class="product-img-wrap">
+          <a href="product-3.html">
+            <img src="https://cf-images.us-east-1.prod.boltdns.net/v1/jit/1834613806001/b11dc548-2ff0-414b-927a-d7e7241bb6f7/main/1280x720/31s296ms/match/image.jpg"
+                 alt="Countertop RO Dispenser" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Drinking Water</div>
+          <div class="product-title"><a href="product-3.html">Countertop RO Dispenser</a></div>
+          <div class="product-desc">Plug in and pour — no installation required. Perfect for renters or anyone wanting pure water instantly, no plumber needed.</div>
+          <div class="product-footer">
+            <div class="product-price">$399 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(3, 'Countertop RO Dispenser', 399, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Premium Shower Filter -->
+      <div class="product-card" data-category="shower" data-price="89" data-name="Premium Shower Filter">
+        <div class="product-img-wrap">
+          <a href="product-4.html">
+            <img src="https://m.media-amazon.com/images/I/610kemQPARL.jpg_BO30,255,255,255_UF750,750_SR1910,1000,0,C_QL100_.jpg"
+                 alt="Premium Shower Filter" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Shower & Bath</div>
+          <div class="product-title"><a href="product-4.html">Premium Shower Filter</a></div>
+          <div class="product-desc">Removes chlorine, chloramines and heavy metals. Softer skin, healthier hair, and a noticeably better shower experience.</div>
+          <div class="product-footer">
+            <div class="product-price">$89 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(4, 'Premium Shower Filter', 89, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Alkaline Pitcher -->
+      <div class="product-card" data-category="drinking" data-price="129" data-name="Alkaline Gravity Pitcher">
+        <div class="product-img-wrap">
+          <a href="product-5.html">
+            <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80"
+                 alt="Alkaline Gravity Pitcher" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Drinking Water</div>
+          <div class="product-title"><a href="product-5.html">Alkaline Gravity Pitcher</a></div>
+          <div class="product-desc">Raises pH to 8–9.5 and adds beneficial minerals like magnesium and calcium. Great tasting water with zero installation.</div>
+          <div class="product-footer">
+            <div class="product-price">$129 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(5, 'Alkaline Gravity Pitcher', 129, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. UV Whole House Sterilizer -->
+      <div class="product-card" data-category="uv whole-house" data-price="699" data-name="UV Whole House Sterilizer">
+        <span class="badge-ribbon">Well Water</span>
+        <div class="product-img-wrap">
+          <a href="product-6.html">
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80"
+                 alt="UV Whole House Sterilizer" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">UV Sterilization</div>
+          <div class="product-title"><a href="product-6.html">UV Whole House Sterilizer</a></div>
+          <div class="product-desc">Destroys 99.99% of bacteria, viruses and pathogens using UV-C light — chemical-free. Essential for well water homes.</div>
+          <div class="product-footer">
+            <div class="product-price">$699 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(6, 'UV Whole House Sterilizer', 699, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Faucet-Mount Filter -->
+      <div class="product-card" data-category="drinking" data-price="49" data-name="Faucet-Mount Filter">
+        <span class="badge-ribbon sale">Best Value</span>
+        <div class="product-img-wrap">
+          <a href="product-7.html">
+            <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?auto=format&fit=crop&w=800&q=80"
+                 alt="Faucet-Mount Filter" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Drinking Water</div>
+          <div class="product-title"><a href="product-7.html">Faucet-Mount Filter</a></div>
+          <div class="product-desc">Attaches to any standard faucet in seconds. Reduces chlorine, sediment and bad taste. Perfect entry-level solution.</div>
+          <div class="product-footer">
+            <div class="product-price">$49 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(7, 'Faucet-Mount Filter', 49, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Iron & Manganese Filter -->
+      <div class="product-card" data-category="whole-house" data-price="949" data-name="Iron & Manganese Filter">
+        <div class="product-img-wrap">
+          <a href="product-9.html">
+            <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80"
+                 alt="Iron and Manganese Filter" class="product-img" loading="lazy">
+          </a>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Whole House</div>
+          <div class="product-title"><a href="product-9.html">Iron & Manganese Filter</a></div>
+          <div class="product-desc">Eliminates the rust stains, metallic taste and orange water common in Alberta wells. Whole-home protection, auto-backwash.</div>
+          <div class="product-footer">
+            <div class="product-price">$949 <small>CAD</small></div>
+            <button class="add-btn" onclick="addToCart(9, 'Iron & Manganese Filter', 949, this)">
+              <i class="fa-solid fa-cart-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- No results -->
+      <div class="no-results" id="noResults">
+        <i class="fa-solid fa-filter-circle-xmark"></i>
+        <p>No products found in this category.</p>
+      </div>
+
     </div>
   </main>
 
+  <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="container">
-      <div class="footer-title">AlbertaPure • Calgary, Alberta</div>
-      <p>123 Water Avenue SW, Calgary, AB T2P 1J9</p>
-      <p>(403) 555-0123 • support@albertapure.ca</p>
-      <p style="margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7;">© 2026 AlbertaPure. All rights reserved.</p>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><i class="fa-solid fa-droplet"></i> AlbertaPure</div>
+        <p>Calgary's trusted water filtration specialists. Serving Alberta families for over 10 years.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="product-1.html">Whole House Softener</a>
+        <a href="product-2.html">Under-Sink RO</a>
+        <a href="product-3.html">Countertop RO</a>
+        <a href="product-4.html">Shower Filter</a>
+        <a href="product-5.html">Alkaline Pitcher</a>
+        <a href="product-6.html">UV Sterilizer</a>
+        <a href="product-7.html">Faucet Filter</a>
+        <a href="product-9.html">Iron Filter</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+        <a href="shop.html">Shop</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+14035550123"><i class="fa-solid fa-phone" style="width:16px;margin-right:6px;"></i>(403) 555-0123</a>
+        <a href="mailto:support@albertapure.ca"><i class="fa-solid fa-envelope" style="width:16px;margin-right:6px;"></i>support@albertapure.ca</a>
+        <a href="#"><i class="fa-solid fa-map-marker-alt" style="width:16px;margin-right:6px;"></i>123 Water Ave SW, Calgary</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AlbertaPure. All rights reserved.</span>
+      <span>Calgary, Alberta, Canada</span>
     </div>
   </footer>
 
+  <!-- Toast -->
+  <div id="toast"></div>
+
   <script>
-    // Твой текущий скрипт корзины
+    // ===== CART =====
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function updateCartCount() {
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
       document.getElementById('cart-count').textContent = count;
     }
 
-    function addToCart(id, name, price) {
-      const existing = cart.find(item => item.id === id);
+    function addToCart(id, name, price, btn) {
+      const existing = cart.find(i => i.id === id);
       if (existing) {
         existing.qty = (existing.qty || 1) + 1;
       } else {
@@ -461,8 +938,100 @@
       }
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
-      alert(`${name} added to cart!`);
+      showToast(`✓ ${name} added to cart`);
+
+      // Button feedback
+      const orig = btn.innerHTML;
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Added';
+      btn.classList.add('added');
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.classList.remove('added');
+      }, 1800);
     }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.opacity = '1';
+      t.style.transform = 'translateY(0)';
+      clearTimeout(window._tt);
+      window._tt = setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(12px)';
+      }, 2500);
+    }
+
+    // ===== FILTER =====
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.product-card');
+    const countEl = document.getElementById('resultCount');
+    const noResults = document.getElementById('noResults');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        applyFilters(filter, document.getElementById('sortSelect').value);
+      });
+    });
+
+    function applyFilters(filter, sort) {
+      let visible = [];
+      cards.forEach(card => {
+        const cats = card.dataset.category || '';
+        const show = filter === 'all' || cats.includes(filter);
+        card.classList.toggle('hidden', !show);
+        if (show) visible.push(card);
+      });
+
+      // Sort
+      const grid = document.getElementById('productsGrid');
+      visible.sort((a, b) => {
+        if (sort === 'price-asc') return +a.dataset.price - +b.dataset.price;
+        if (sort === 'price-desc') return +b.dataset.price - +a.dataset.price;
+        if (sort === 'name') return a.dataset.name.localeCompare(b.dataset.name);
+        return 0;
+      });
+
+      visible.forEach(card => grid.appendChild(card));
+      countEl.textContent = visible.length;
+      noResults.style.display = visible.length === 0 ? 'block' : 'none';
+    }
+
+    document.getElementById('sortSelect').addEventListener('change', function() {
+      const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+      applyFilters(activeFilter, this.value);
+    });
+
+    // ===== HAMBURGER =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      hamburger.classList.toggle('open', menuOpen);
+      hamburger.setAttribute('aria-expanded', menuOpen);
+      if (menuOpen) {
+        mobileMenu.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+        requestAnimationFrame(() => mobileMenu.classList.add('open'));
+      } else {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => { mobileMenu.style.display = 'none'; }, 350);
+      }
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => { if (menuOpen) hamburger.click(); });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && menuOpen) hamburger.click();
+    });
 
     updateCartCount();
   </script>
